@@ -1,0 +1,17 @@
+#header-image{
+	background-image: url(header.jpg); 
+	background-repeat: no-repeat; 
+	display: block;
+	background-position: top; 
+	padding-top:68px;
+  height:280px;
+  position:relative;
+  opacity:0.9;
+}
+#welcome-text{
+  position: absolute;
+  color:white;
+  top:15em;
+  left:17em;
+  font:bold 24px Helvetica, Sans-Serif;
+}
