@@ -1,0 +1,26 @@
+!!! 5
+%html
+  %head
+    %title Rate My Landlord
+    %meta{charset: "utf-8"}/
+    %link{href: "style.css", rel: "stylesheet"}/
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    #header-wrap
+      %header.group
+        %h2
+          %a{href: "index.html", title: "burstudio"} Rate My Landlord
+        %nav.group
+          %ul
+            %li.home
+              %a{href: "#", title: ""} Home
+            %li
+              %a{href: "#", title: ""} Landlords
+            %li.last
+              %div
+                %input{name: "search", placeholder: "search", type: "text"}/
+                %input.search{name: "search", type: "submit", value: "go"}/
+      =yield
+
