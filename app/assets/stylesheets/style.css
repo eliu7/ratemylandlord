@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+  min-width:1000px;
 }
 ol, ul {
 	list-style: none;
