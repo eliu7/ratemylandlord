@@ -1,26 +1,25 @@
 !!!
-%html{:lang => "en"}
+%html{lang: "en"}
   %head
-    %meta{:charset => "utf-8"}/
+    %meta{charset: "utf-8"}/
     %title Rate My Landlord
-
     %link{href: "style.css", rel: "stylesheet"}/
     %link{href: "home.css", rel: "stylesheet"}/
-
   %body
     #header-wrap
       %header.group
         %h2
-          %a{:href => "index.html", :title => "burstudio"} Rate My Landlord
+          %a{href: "index.html", title: "burstudio"} Rate My Landlord
         %nav.group
           %ul
             %li.home
-              %a{:href => "#", :title => ""} Home
+              %a{href: "#", title: ""} Home
             %li
-              %a{:href => "#", :title => ""} Landlords
+              %a{href: "#", title: ""} Landlords
             %li.last
-                %input{:name => "search", :placeholder => "search", :type => "text"}/
-                %input.search{:name => "search", :type => "submit", :value => "go"}/
+              %div
+                %input{name: "search", placeholder: "search", type: "text"}/
+                %input.search{name: "search", type: "submit", value: "go"}/
     / end header wrap
     %br/
     #container
