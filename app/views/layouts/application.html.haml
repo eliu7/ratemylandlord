@@ -7,11 +7,11 @@
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  %body
+  %body 
     #header-wrap
       %header.group
         %h2
-          %a{href: "index.html", title: "burstudio"} Rate My Landlord
+          %a{href: "/", title: "burstudio"} Rate My Landlord
         %nav.group
           %ul
             %li.home
@@ -22,5 +22,7 @@
               %div
                 %input{name: "search", placeholder: "search", type: "text"}/
                 %input.search{name: "search", type: "submit", value: "go"}/
-      =yield
+    / end header wrap
+    %br
+    =yield
 
