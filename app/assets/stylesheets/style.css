@@ -104,6 +104,12 @@ strong{
 	border-top: 10px solid #4d9543;
 	padding-top: 40px;
 }
+#login{
+  float:right;
+  padding-right:15px;
+
+  text-align:right;
+}
 header{
 	width: 960px;
 	margin: 0 auto;
