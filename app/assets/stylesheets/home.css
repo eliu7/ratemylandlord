@@ -11,7 +11,11 @@
 #welcome-text{
   position: absolute;
   color:white;
+  margin-left:auto;
+  margin-right:auto;
+  padding-left:4em;  
   top:15em;
-  left:17em;
   font:bold 24px Helvetica, Sans-Serif;
+  white-space: nowrap;
+overflow: hidden;
 }
