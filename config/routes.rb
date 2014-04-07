@@ -1,6 +1,11 @@
 Ratemylandlord::Application.routes.draw do
 
   resources :landlords, :users, :ratings
+
+  #match '/' => 'welcome#login', :via => :post, :as => :login
+
+  post '/login(.:format)' => 'login#login', as: :login
+  get '/logout(.:format)' => 'login#logout', as: :logout
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -13,4 +13,9 @@ class User < ActiveRecord::Base
   def ratings
     Rating.where(user_id: id)
   end
+
+  def self.current
+    return User.find_by_email(session[:user]) if session[:user]
+    return nil
+  end
 end

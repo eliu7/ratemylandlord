@@ -13,15 +13,19 @@
         %h2
           %a{href: "/", title: "burstudio"} Rate My Landlord
         #login
-          %form{method: :post}
-            = label :login, :email, 'Bmail'
-            = text_field :login, :email
-            %br
-            %br
-            = label :login, :password, 'Password'
-            = password_field :login, :password
-            %br
-            %input{:type => "submit", :value => "Login"}
+          -if session[:user]
+            = "Logged in as #{session[:user]}"
+            = link_to 'logout', logout_path(redirect: request.env['PATH_INFO'])
+          -else
+            = form_tag login_path(redirect: request.env['PATH_INFO']) do
+              = label :login, :email, 'Bmail'
+              = text_field :login, :email
+              %br
+              %br
+              = label :login, :password, 'Password'
+              = password_field :login, :password
+              %br
+              %input{:type => "submit", :value => "Login"}
         %nav.group
           %ul
             %li.home
