@@ -1,0 +1,21 @@
+
+%body    
+  #container
+    #landlords
+      %table
+        %tbody
+          %tr
+            %th= "Name"
+            %th= "Total"
+            %th= "Helpfulness"
+            %th= "Friendliness"
+            %th= "Availability"
+          - alter = true;
+          - @landlords.each do |row|
+            - alter = !alter
+            %tr{class: alter ? "alt" : nil}
+              - row.each do |column|
+                %td= column
+  %br
+  #widget-wrap.group
+  %footer.group
