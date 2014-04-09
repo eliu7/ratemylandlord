@@ -1,9 +1,9 @@
 class LandlordsController < ApplicationController
   def index
-    @landlords = [
-                  ["Kevin Johnson", 5,5,5,5],
-                  ["Adam Heimowitz", 4,5,4,4],
-                  ["Mike Zagreda", 1,1,1,1]
-                ]
+    if params[:search] == nil
+      @landlords = Landlord.all
+    else
+      @landlords = Landlord.search(params[:search])
+    end
   end
 end
