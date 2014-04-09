@@ -586,6 +586,14 @@ footer{
 	right: 50%;
 	
 }
+
+#login_info {
+  padding: 4px;
+}
+#login_error {
+  padding: 4px;
+  color: #FF0000;
+}
 /* END FOOTER */
 
 

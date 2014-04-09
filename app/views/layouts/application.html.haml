@@ -14,13 +14,21 @@
           %a{href: "/", title: "burstudio"} Rate My Landlord
         #login
           -if session[:user]
-            = "Logged in as #{session[:user]}"
-            = link_to 'logout', logout_path(redirect: request.env['PATH_INFO'])
+            #login_info
+              = "Logged in as #{session[:user][:email]}"
+              %br
+              = link_to 'account', logout_path(redirect: request.env['PATH_INFO'])
+              %br
+              %br
+              = link_to 'logout', logout_path(redirect: request.env['PATH_INFO'])
           -else
+            -if flash[:loginerror]
+              #login_error.message= flash[:loginerror]
+            -else
+              #login_info.message= "Please log in"
             = form_tag login_path(redirect: request.env['PATH_INFO']) do
               = label :login, :email, 'Bmail'
               = text_field :login, :email
-              %br
               %br
               = label :login, :password, 'Password'
               = password_field :login, :password
