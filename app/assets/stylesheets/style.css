@@ -198,9 +198,8 @@ nav ul li.home a:hover{
 	border-bottom-left-radius: 30px;
 	background: #5fae53 url(home.png) no-repeat 50% 50%;
 }
-nav ul li div input[type=text]{
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
+nav ul li form input[type=text]{
+  border-radius: 20px;
 	background: #4b9241;
 	border-left: none;
 	border-right: none;
@@ -211,7 +210,7 @@ nav ul li div input[type=text]{
 	padding: 5px 0 5px 20px;
 	width: 200px;
 }
-nav ul li div input[type=text]:focus{
+nav ul li form input[type=text]:focus{
 	outline: none;
 }
 
@@ -223,7 +222,7 @@ nav ul li div input[type=text]:focus{
    color: #fff;   
 }
 
-nav ul li div input[type=submit]{
+nav ul li form input[type=submit]{
 	background: url(search.png) no-repeat 50% 50%;
 	border: none;
 	text-indent: -999999px;

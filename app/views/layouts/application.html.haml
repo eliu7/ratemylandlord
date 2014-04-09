@@ -39,11 +39,11 @@
             %li.home
               %a{href: "/", title: ""} Home
             %li
-              %a{href: "/landlords", title: ""} Landlords
+              =link_to 'Landlords', landlords_path
             %li.last
-              %div
+              = form_tag landlords_path, method: 'get' do
                 %input{name: "search", placeholder: "search", type: "text"}/
-                %input.search{name: "search", type: "submit", value: "go"}/
+                %input.search{type: "submit", value: "go"}/
     / end header wrap
     %br
     =yield

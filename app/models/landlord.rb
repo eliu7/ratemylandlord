@@ -7,14 +7,15 @@ class Landlord < ActiveRecord::Base
   #Calculates the average ratings for the landlord
   def average_ratings
     avgs = Hash.new(0)
+    categories = Rating.categories
     rs = ratings
     rs.each do |r|
-      Rating.categories.each { |c| avgs[c] += r.send(c) }
+      categories.each { |c| avgs[c] += r.send(c) }
     end
 
     avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : v/rs.length }
 
-    return avgs
+    categories.map { |c| avgs[c] }
   end
 
   #Searches for landlords whose name contains the given string
