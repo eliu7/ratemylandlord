@@ -11,10 +11,11 @@
             %th= "Friendliness"
             %th= "Availability"
           - alter = true;
-          - @landlords.each do |row|
+          - @landlords.each do |landlord|
             - alter = !alter
             %tr{class: alter ? "alt" : nil}
-              - row.each do |column|
+              %td= landlord.name
+              - landlord.average_ratings.each do |column|
                 %td= column
   %br
   #widget-wrap.group
