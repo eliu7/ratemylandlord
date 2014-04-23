@@ -25,7 +25,8 @@ class Landlord < ActiveRecord::Base
     landlords = Landlord.where("LOWER(name) LIKE :search", search: "%#{string}%")
     sorted = []
     landlords.each do |l|
-      pos = l.name.downcase.index(string)
+      newname = l.name.downcase.split.reverse.join(' ')
+      pos = newname.index(string)
       next if pos.nil?
       sorted << [l, pos]
     end
