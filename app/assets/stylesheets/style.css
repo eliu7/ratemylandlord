@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   min-width:1000px;
+  height: 100%;
 }
 ol, ul {
 	list-style: none;
@@ -230,6 +231,7 @@ nav ul li form input[type=submit]{
 /* END HEADER */
 
 #container{
+  min-height:100%;
 	width: 960px;
 	margin: 0 auto;
 }
@@ -583,7 +585,7 @@ footer{
 }
 
 #login_info {
-  padding: 4px;
+  padding: 4px  ;
 }
 #login_error {
   padding: 4px;
