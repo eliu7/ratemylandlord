@@ -21,10 +21,11 @@ class Landlord < ActiveRecord::Base
   #Searches for landlords whose name contains the given string
   # results are sorted by the position of the string in the name
   def self.search(string)
-    landlords = Landlord.where("name LIKE :search", search: "%#{string}%")
+    string = string.downcase
+    landlords = Landlord.where("LOWER(name) LIKE :search", search: "%#{string}%")
     sorted = []
     landlords.each do |l|
-      pos = l.name.index(string)
+      pos = l.name.downcase.index(string)
       next if pos.nil?
       sorted << [l, pos]
     end
