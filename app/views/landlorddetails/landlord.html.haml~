@@ -1,0 +1,74 @@
+!!!
+%html{lang: "en"}
+	%head
+		%meta{charset: "utf-8"}/
+		%link{href: "landlorddetails.css", rel: "stylesheet"}/
+	%body    
+		#container
+			#name
+				Details about 
+				=@mylandlord.name
+			%br
+			#reviewslist
+				#listelem
+					#listelemnum
+						=@avg_reviews[0]
+					General
+				#listelem
+					#listelemnum
+						=@avg_reviews[1]
+					Helpfulness
+				#listelem
+					#listelemnum
+						=@avg_reviews[2]
+					Friendliness
+				#listelem
+					#listelemnum
+						=@avg_reviews[3]
+					Availablility
+			%br
+			%br
+			%br
+			#reviewtitle
+				Reviews about #{@mylandlord.name}
+			%br
+				#reviewcontainer
+					- x=1
+					- @reviews.each do |review|
+						%table
+							%thead
+								%tr
+									#review
+										%span{class: x.even? ? "greyback" : nil}
+											#reviewstats
+												Hello Light
+												%br
+												%br
+												#reviewnum
+													Helpfulness:
+													- review.helpfulness.times do |x|
+														%img(src="assets/bearcat.jpg")
+													- (5 - review.helpfulness).times do |x|
+														%img(src="assets/bearcat.jpg" class="opp")
+													%br
+													#reviewnum
+													Friendliness:
+													- review.friendliness.times do |x|
+														%img(src="assets/bearcat.jpg")
+													- (5 - review.friendliness).times do |x|
+														%img(src="assets/bearcat.jpg" class="opp")
+													%br
+													#reviewnum
+													Availability:
+													- review.availability.times do |x|
+														%img(src="assets/bearcat.jpg")
+													- (5 - review.availability).times do |x|
+														%img(src="assets/bearcat.jpg" class="opp")
+													%br
+											#reviewsum
+												#{review.comment} 	
+	
+									- x = x+1		
+
+					
+
