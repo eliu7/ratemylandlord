@@ -231,8 +231,7 @@ nav ul li form input[type=submit]{
 /* END HEADER */
 
 #container{
-  min-height:100%
-    min-height:100%;;
+  min-height:100%;
 	width: 960px;
 	margin: 0 auto;
 }
