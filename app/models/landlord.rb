@@ -1,7 +1,9 @@
 class Landlord < ActiveRecord::Base
   #Gets all of the ratings for the landlord
-  def ratings
-    Rating.where(landlord_id: id)
+  def ratings(page = nil)
+    ratings = Rating.where(landlord_id: id)
+    return ratings if page.nil?
+    return ratings.limit(20).offset((page-1)*20)
   end
 
   #Calculates the average ratings for the landlord
@@ -13,7 +15,7 @@ class Landlord < ActiveRecord::Base
       categories.each { |c| avgs[c] += r.send(c) }
     end
 
-    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : v.to_f/rs.length }
+    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : v.to_f/rs.length.round(1) }
 
     categories.map { |c| avgs[c] }
   end
