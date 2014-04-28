@@ -7,6 +7,7 @@ Ratemylandlord::Application.routes.draw do
   post '/login(.:format)' => 'login#login', as: :login
   get '/logout(.:format)' => 'login#logout', as: :logout
   get '/admin' => 'admin#index'
+  get '/revoke(.:format)' => 'admin#revoke', as: 'revoke'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -57,7 +58,6 @@ Ratemylandlord::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
    root :to => 'welcome#index'
-   get '/landlord', to: 'landlord#index'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
