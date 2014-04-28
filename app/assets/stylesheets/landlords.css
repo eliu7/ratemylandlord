@@ -37,3 +37,13 @@ tr.alt td{
 a img.new-button{
   margin-left:600px;
 }
+td a:link{
+  color:black;
+  text-decoration:underline;
+}
+td a:hover{
+    text-decoration:none;
+}
+td a:visited{
+  color:black;
+}

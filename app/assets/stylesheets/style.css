@@ -36,6 +36,9 @@ body {
 ol, ul {
 	list-style: none;
 }
+a, a:link a:visited{
+  text-decoration:none;
+}
 blockquote, q {
 	quotes: none;
 }
@@ -80,10 +83,6 @@ p{
 	font-size: 13px;
 	color: #555555;
 	line-height: 18px;
-}
-a, a:link, a:visited{
-	text-decoration: none;
-	outline: none;
 }
 .green{
 	color: #509743;
