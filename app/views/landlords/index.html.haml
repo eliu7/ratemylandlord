@@ -1,7 +1,8 @@
 
 %body    
   #container
-    #landlords
+    #landlords   
+      =link_to(image_tag("newlandlord.jpg"), "http://google.com") 
       %table
         %tbody
           %tr
@@ -14,7 +15,7 @@
           - @landlords.each do |landlord|
             - alter = !alter
             %tr{class: alter ? "alt" : nil}
-              %td= landlord.name
+              %td= link_to(landlord.name, landlord_path(:id => landlord.id))
               - landlord.average_ratings.each do |column|
                 %td= column
               - if session[:admin]

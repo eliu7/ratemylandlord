@@ -7,7 +7,8 @@
 table{
   font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
   width:100%;
-  border-collapse:collapse; 
+  border-collapse:collapse;
+
 }
 
 td,th{
@@ -25,7 +26,14 @@ th{
   color:#fff;
 }
 
+tr{
+  line-height:30px;
+}
+
 tr.alt td{
   color:#000;
   background-color:#C1E4B5;
+}
+a img.new-button{
+  margin-left:600px;
 }
