@@ -7,10 +7,10 @@
         %tbody
           %tr
             %th= "Name"
-            %th= "Total"
-            %th= "Helpfulness"
-            %th= "Friendliness"
-            %th= "Availability"
+            - Rating.categories.each do |category|
+              %th= category.to_s.capitalize
+            - if session[:admin]
+              %th= "Delete"
           - alter = true;
           - @landlords.each do |landlord|
             - alter = !alter
@@ -18,6 +18,9 @@
               %td= link_to(landlord.name, landlord_path(:id => landlord.id))
               - landlord.average_ratings.each do |column|
                 %td= column
+              - if session[:admin]
+                %td= link_to image_tag("red-x-icon.png"), landlord_path(landlord.id), :method => :delete, :confirm => "Are you sure you want to delete #{landlord.name}?"
+
   %br
   #widget-wrap.group
   %footer.group
