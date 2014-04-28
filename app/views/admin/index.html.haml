@@ -9,3 +9,4 @@
           - alter = !alter
           %tr{class:alter ? "alt" : nil}
             %td= user.email
+            %td= link_to image_tag("red-x-icon.png"), revoke_path(user.id),:confirm => "Are you sure you want to remove #{user.email} as an admin?"
