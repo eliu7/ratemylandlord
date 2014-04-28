@@ -15,7 +15,7 @@ class Landlord < ActiveRecord::Base
       categories.each { |c| avgs[c] += r.send(c) }
     end
 
-    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : v.to_f/rs.length.round(1) }
+    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : (v.to_f/rs.length).round(1) }
 
     categories.map { |c| avgs[c] }
   end
