@@ -6,7 +6,7 @@ Ratemylandlord::Application.routes.draw do
 
   post '/login(.:format)' => 'login#login', as: :login
   get '/logout(.:format)' => 'login#logout', as: :logout
-  get '/admin' => 'admin#index'
+  get '/admin' => 'admin#index', as: 'admin'
   get '/revoke(.:format)' => 'admin#revoke', as: 'revoke'
   # The priority is based upon order of creation:
   # first created -> highest priority.
