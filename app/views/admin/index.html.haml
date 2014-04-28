@@ -1,0 +1,11 @@
+%body
+  #container
+    %table
+      %tbody
+        %th= "Email"
+        %th= "Remove as Admin"
+        - alter = true
+        - @admins.each do |user|
+          - alter = !alter
+          %tr{class:alter ? "alt" : nil}
+            %td= user.email
