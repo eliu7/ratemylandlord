@@ -14,4 +14,10 @@ class LandlordsController < ApplicationController
 		@reviews = @mylandlord.ratings(pagenum)
 		@avg_reviews=@mylandlord.average_ratings
 	end
+
+  def destroy
+    landlord = Landlord.find(params[:id])
+    landlord.destroy if landlord
+    redirect_to landlords_path
+  end
 end

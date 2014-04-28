@@ -7,6 +7,7 @@ class LoginController < ApplicationController
       pass = User.hash_pass(params[:login][:password])
       if user.password == pass
         session[:user] = {id: user.id, email: user.email, permissions: user.permissions}
+        session[:admin] = user.permissions
       else
         error
       end
@@ -16,6 +17,7 @@ class LoginController < ApplicationController
 
   def logout
     session[:user] = nil
+    session[:admin] = false
     redirect_to params[:redirect]
   end
 
