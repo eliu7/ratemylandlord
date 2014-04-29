@@ -586,7 +586,7 @@ footer{
 #login_info {
   padding: 4px  ;
 }
-#login_error {
+#error {
   padding: 4px;
   color: #FF0000;
 }

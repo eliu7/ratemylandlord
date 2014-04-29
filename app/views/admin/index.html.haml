@@ -6,6 +6,8 @@
         %th= "Remove as Admin"
         - alter = true
         - @admins.each do |user|
+          / Don't show current user
+          - next if user.email == current_user.email
           - alter = !alter
           %tr{class:alter ? "alt" : nil}
             %td= user.email

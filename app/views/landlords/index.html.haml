@@ -2,14 +2,15 @@
 %body    
   #container
     #landlords   
-      =link_to(image_tag("newlandlord.jpg", :class => "new-button"), "http://google.com") 
+      - if current_user
+        =link_to(image_tag("newlandlord.jpg", :class => "new-button"), "http://google.com") 
       %table
         %tbody
           %tr
             %th= "Name"
             - Rating.categories.each do |category|
               %th= category.to_s.capitalize
-            - if session[:admin]
+            - if admin?
               %th= "Delete"
           - alter = true;
           - @landlords.each do |landlord|
@@ -18,7 +19,8 @@
               %td= link_to(landlord.name, landlord_path(:id => landlord.id))
               - landlord.average_ratings.each do |column|
                 %td= column
-              - if session[:admin]
+              - if admin?
+                /TODO Make dialog Yes/No instead of Ok/Cancel
                 %td= link_to image_tag("red-x-icon.png"), landlord_path(landlord.id), :method => :delete, :confirm => "Are you sure you want to delete #{landlord.name}?"
 
   %br

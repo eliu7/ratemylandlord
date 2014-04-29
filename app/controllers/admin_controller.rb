@@ -1,10 +1,12 @@
 class AdminController < ApplicationController
   def index
-    @admins = User.where(:permissions => true)
+    if require_admin
+      @admins = User.where(:admin => true)
+    end
   end
   def revoke
     user = User.find(params[:id])
-    user.permissions = false
+    user.admin = false
     user.save
     redirect_to(admin_path)
   end
