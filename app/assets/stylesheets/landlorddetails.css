@@ -1,0 +1,95 @@
+#name{
+	font-size:30px;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#reviewslist{
+	display:inline-block;
+	width:500px;
+	margin: 0px auto;
+}
+
+#listelem{
+	float:left;
+	background:blue;
+	width:115px;
+	height:50px;
+	color:white;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	border:2px solid;
+	border-radius:4px;
+	font-size:20px;
+}
+
+
+#listelemnum{
+	vertical-align:middle;
+	font-size:30px;
+}
+
+#reviewstats{
+	float:left;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:15px;
+	font-weight: bold;
+	text-align:right;
+	background:inherit;
+	padding-top:5px;
+	padding-left:5px;
+}
+
+#reviewtitle{
+	text-align: center;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:20px;
+	font-weight: bold;
+	border-bottom-width:5px;
+	border-top-width:0px;
+	border-left-width:0px;
+	border-right-width:0px;
+	border-style:solid;
+	border-color:#009933;
+}
+
+#review{
+	margin:0px auto;
+	clear:both;
+}
+
+.greyback{
+	background:#C1E4B5;
+}
+
+.greenback{
+	
+}
+
+.yellowback{}
+
+.redback{}
+
+
+
+#reviewnum{
+	display:inline;
+}
+
+.opp{
+	opacity:0.5;
+}
+
+#reviewsum{
+	padding-left: 270px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background:inherit;
+	height:80px;
+	font-size:18px;
+]
+
+table{
+	border: 1px solid #04B404;
+}
+	
