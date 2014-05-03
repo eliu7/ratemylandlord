@@ -2,13 +2,32 @@
   #container
     %table
       %tbody
-        %th= "Email"
-        %th= "Remove as Admin"
+        %th Name
+        %th Email
+        %th Remove as Admin
         - alter = true
         - @admins.each do |user|
           / Don't show current user
           - next if user.email == current_user.email
           - alter = !alter
-          %tr{class:alter ? "alt" : nil}
+          %tr{class: alter ? "alt" : nil}
+            %td= user.name
             %td= user.email
-            %td= link_to image_tag("red-x-icon.png"), revoke_path(id: user.id),:confirm => "Are you sure you want to remove #{user.email} as an admin?"
+            %td= link_to image_tag("red-x-icon.png"), revoke_admin_path(id: user.id),:confirm => "Are you sure you want to remove #{user.name} (#{user.email}) as an admin?"
+
+    %br
+    %br
+    %br
+
+    %table
+      %tbody
+        %th Name
+        %th Email
+        %th Make Admin
+        - alter = true
+        - @nonadmins.each do |user|
+          - alter = !alter
+          %tr{class: alter ? "alt" : nil}
+            %td= user.name
+            %td= user.email
+            %td= link_to image_tag("check-icon.png"), make_admin_path(id: user.id)

@@ -8,7 +8,8 @@ Ratemylandlord::Application.routes.draw do
   get 'signin', to: 'sessions#signin', as: 'signin'
 
   get '/admin' => 'admin#index', as: 'admin'
-  get '/revoke' => 'admin#revoke', as: 'revoke'
+  get '/revoke' => 'admin#revoke', as: 'revoke_admin'
+  get '/make' => 'admin#make', as: 'make_admin'
 
   root :to => 'welcome#index'
 end
