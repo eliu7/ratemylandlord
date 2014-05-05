@@ -5,21 +5,20 @@
 
 #reviewslist{
 	display:inline-block;
-	width:500px;
-	margin: 0px auto;
+	/*width:500px;*/
+	/*margin: 0px auto;*/
 }
 
 #listelem{
 	float:left;
-	background:blue;
 	width:115px;
 	height:50px;
-	color:white;
-	font-weight: bold;
+	color:#000000;
 	text-align: center;
 	vertical-align: middle;
 	border:2px solid;
 	border-radius:4px;
+	border-color:white;
 	font-size:20px;
 }
 
@@ -30,14 +29,21 @@
 }
 
 #reviewstats{
-	float:left;
+	/*float:left;*/
 	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	font-size:15px;
 	font-weight: bold;
 	text-align:right;
 	background:inherit;
-	padding-top:5px;
-	padding-left:5px;
+	width:250px;
+	/*padding-top:5px;
+	padding-left:5px;*/
+	border-bottom-width:0px;
+	border-top-width:0px;
+	border-left-width:0px;
+	border-right-width:5px;
+	border-style:solid;
+	border-color:#009933;
 }
 
 #reviewtitle{
@@ -54,8 +60,8 @@
 }
 
 #review{
-	margin:0px auto;
-	clear:both;
+	/*margin:0px auto;
+	clear:both;*/
 }
 
 .greyback{
@@ -63,14 +69,27 @@
 }
 
 .greenback{
-	
+	background:#2EB82E;
 }
 
-.yellowback{}
+.yellowback{
+	background:#FFFF66;
+}
 
-.redback{}
+.redback{
+	background:#E6E600;
+}
 
+tr{
+	background:inherit;
+	height:200px;
+	border:inherit;
+}
 
+td{
+	height:200px;
+	border:inherit;
+}
 
 #reviewnum{
 	display:inline;
@@ -81,15 +100,14 @@
 }
 
 #reviewsum{
-	padding-left: 270px;
+	/*padding-left: 270px;
 	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-bottom: 45px;*/
 	background:inherit;
-	height:80px;
 	font-size:18px;
-]
+}
 
 table{
-	border: 1px solid #04B404;
+	
 }
 	
