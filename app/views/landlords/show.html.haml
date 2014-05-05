@@ -6,7 +6,6 @@
 	%body    
 		#container
 			#name
-				Details about 
 				=@mylandlord.name
 			%br
 			#reviewslist
@@ -62,7 +61,8 @@
 										#{review.comment} 	
 	
 									- x = x+1
-			#{@reviews.count}
+			#Pagenums
+				= link_to '1', landlord_path(:page => 1)
 	
 
 					
