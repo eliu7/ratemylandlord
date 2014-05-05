@@ -2,7 +2,7 @@
 %html{lang: "en"}
 	%head
 		%meta{charset: "utf-8"}/
-		%link{href: "landlorddetails.css", rel: "stylesheet"}/
+		%link{href: "/assets/landlorddetails.css", rel: "stylesheet"}/
 	%body    
 		#container
 			#name
@@ -10,22 +10,11 @@
 				=@mylandlord.name
 			%br
 			#reviewslist
-				#listelem
-					#listelemnum
-						=@avg_reviews[0]
-					General
-				#listelem
-					#listelemnum
-						=@avg_reviews[1]
-					Helpfulness
-				#listelem
-					#listelemnum
-						=@avg_reviews[2]
-					Friendliness
-				#listelem
-					#listelemnum
-						=@avg_reviews[3]
-					Availablility
+				- Rating.categories.each_with_index do |cat, i|
+					#listelem{class: @color_func.call(@avg_reviews[i])}
+						#listelemnum
+							= @avg_reviews[i]
+						= cat.to_s.capitalize
 			%br
 			%br
 			%br
@@ -37,44 +26,44 @@
 					- @reviews.each do |review|
 						%table
 							%thead
-								%tr
-									#review
-										%span{class: x.even? ? "greyback" : nil}
-											#reviewstats
-												Hello Light
-												%br
-												%br
-												#reviewnum
-													General:
-													- review.general.times do |x|
-														%img(src="assets/bearcat.jpg")
-													- (5 - review.general).times do |x|
-														%img(src="assets/bearcat.jpg" class="opp")
-													%br
-													Helpfulness:
-													- review.helpfulness.times do |x|
-														%img(src="assets/bearcat.jpg")
-													- (5 - review.helpfulness).times do |x|
-														%img(src="assets/bearcat.jpg" class="opp")
-													%br
-													#reviewnum
-													Friendliness:
-													- review.friendliness.times do |x|
-														%img(src="assets/bearcat.jpg")
-													- (5 - review.friendliness).times do |x|
-														%img(src="assets/bearcat.jpg" class="opp")
-													%br
-													#reviewnum
-													Availability:
-													- review.availability.times do |x|
-														%img(src="assets/bearcat.jpg")
-													- (5 - review.availability).times do |x|
-														%img(src="assets/bearcat.jpg" class="opp")
-													%br
-											#reviewsum
-												#{review.comment} 	
+								%tr{class: x.even? ? "greyback" : nil}
+									%td#reviewstats
+										=review.created_at
+										%br
+										%br
+										#reviewnum
+											General:
+											- review.general.times do |x|
+												%img(src="/assets/bearcat.png")
+											- (5 - review.general).times do |x|
+												%img(src="/assets/bearcat.png" class="opp")
+											%br
+											Helpfulness:
+											- review.helpfulness.times do |x|
+												%img(src="/assets/bearcat.png")
+											- (5 - review.helpfulness).times do |x|
+												%img(src="/assets/bearcat.png" class="opp")
+											%br
+											#reviewnum
+											Friendliness:
+											- review.friendliness.times do |x|
+												%img(src="/assets/bearcat.png")
+											- (5 - review.friendliness).times do |x|
+												%img(src="/assets/bearcat.png" class="opp")
+											%br
+											#reviewnum
+											Availability:
+											- review.availability.times do |x|
+												%img(src="/assets/bearcat.png")
+											- (5 - review.availability).times do |x|
+												%img(src="/assets/bearcat.png" class="opp")
+											%br
+									%td#reviewsum
+										#{review.comment} 	
 	
-									- x = x+1		
+									- x = x+1
+			#{@reviews.count}
+	
 
 					
 
