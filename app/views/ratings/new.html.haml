@@ -1,0 +1,16 @@
+%body
+  = form_tag ratings_path do
+    - if params[:id].nil?
+      = label :name, 'Name:'
+      = text_field :name, 'name'
+      %br
+      Rate this landlord:
+      %br
+    - Rating.categories.each do |cat|
+      = label cat, "#{cat.to_s.capitalize}:"
+      = text_field cat, cat.to_s
+      %br
+    = label :comment, 'Leave a comment'
+    = text_field :comment, 'comment'
+    
+    = submit_tag "Submit Rating"
