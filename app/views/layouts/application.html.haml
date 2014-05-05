@@ -11,7 +11,7 @@
     #header-wrap
       %header.group
         %h2
-          %a{href: "/", title: "burstudio"} Rate My Landlord
+          %a{href: "/", title: "RateMyLandlord"} Rate My Landlord
         #login
           - if flash[:error]
             #error.message= flash[:error]
@@ -21,9 +21,10 @@
               %br
               = link_to 'logout', signout_path(redirect: request.env['PATH_INFO'])
           -else
+            %br
             -if flash[:loginerror]
               #error.message= flash[:loginerror]
-            = link_to "Sign in using bmail", signin_path(redirect: request.env['PATH_INFO']), id: 'sign_in'
+            = link_to image_tag('bmailsignin.png'), signin_path(redirect: request.env['PATH_INFO']), id: 'sign_in'
         %nav.group
           %ul
             %li.home
