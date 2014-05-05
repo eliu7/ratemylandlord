@@ -13,6 +13,16 @@ class LandlordsController < ApplicationController
 		@mylandlord = Landlord.find(landlord_id)
 		@reviews = @mylandlord.ratings(pagenum)
 		@avg_reviews=@mylandlord.average_ratings
+    @color_func = lambda do |rating|
+      case rating
+      when (3.5..5)
+        'greenback'
+      when (2..3.4)
+        'yellowback'
+      else
+        'redback'
+      end
+    end
 	end
 
   def destroy
