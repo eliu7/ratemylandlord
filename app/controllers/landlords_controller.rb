@@ -9,7 +9,7 @@ class LandlordsController < ApplicationController
 
 	def show
 		landlord_id = params[:id]
-		pagenum = params[:page] || 1
+		pagenum = (params[:page] || '1').to_i
 		@mylandlord = Landlord.find(landlord_id)
 		@reviews = @mylandlord.ratings(pagenum)
 		@avg_reviews=@mylandlord.average_ratings
