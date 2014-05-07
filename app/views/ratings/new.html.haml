@@ -1,0 +1,27 @@
+%body
+  = form_tag ratings_path(id: params[:id]) do |f|
+    - if params[:id].nil?
+      %h5 Create new landlord
+      = label :landlord, 'Name:', required: true
+      = text_field :landlord, 'name', required: 'required'
+      %br
+      %h5 Rate this landlord:
+      %br
+    - else
+      %h5= "Rate #{@landlord.name}"
+    %table
+      - Rating.categories.each do |cat|
+        %tr
+          %td
+            = label cat, "#{cat.to_s.capitalize}:"
+          %td
+            - 5.times do |i|
+              = radio_button :rating, cat, i+1, checked: (i == 2)
+              = i+1
+    %br
+    = label :comment, 'Leave a comment'
+    %br
+    = text_area :rating, :comment, cols: 20, rows: 5, required: true, maxlength: 400
+    %br
+    
+    = submit_tag (params[:id].nil? ? 'Create Landlord' : 'Submit Rating')

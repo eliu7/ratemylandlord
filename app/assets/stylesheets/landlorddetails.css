@@ -1,6 +1,8 @@
 #name{
 	font-size:30px;
 	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align:center;
+	padding-bottom:5px;
 }
 
 #reviewslist{
@@ -41,7 +43,7 @@
 	border-bottom-width:0px;
 	border-top-width:0px;
 	border-left-width:0px;
-	border-right-width:5px;
+	border-right-width:2px;
 	border-style:solid;
 	border-color:#009933;
 }
@@ -77,18 +79,20 @@
 }
 
 .redback{
-	background:#E6E600;
+	background:#FF3333;
 }
 
 tr{
 	background:inherit;
-	height:200px;
+	/*height:200px;*/
 	border:inherit;
 }
 
 td{
-	height:200px;
+	/*height:200px;*/
 	border:inherit;
+	padding-top: .5em;
+   	padding-bottom: .5em;
 }
 
 #reviewnum{
@@ -100,14 +104,13 @@ td{
 }
 
 #reviewsum{
-	/*padding-left: 270px;
-	padding-top: 15px;
-	padding-bottom: 45px;*/
+	padding-left: 35px;
 	background:inherit;
 	font-size:18px;
+	text-align:left;
 }
 
 table{
-	
+	border-collapse: collapse;
 }
 	
