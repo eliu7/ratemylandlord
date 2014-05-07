@@ -7,6 +7,8 @@
 		#container
 			#name
 				=@mylandlord.name
+				- if admin?
+					= link_to image_tag("red-x-icon.png"), landlords_path, :method => :delete, :confirm => "This will delete #{@mylandlord.name} and all ratings associated with this landlord. This cannot be undone."
 			%br
 			#reviewslist
 				- Rating.categories.each_with_index do |cat, i|
@@ -16,7 +18,7 @@
 						= cat.to_s.capitalize
 			%br
 			%br
-			%br
+			= link_to 'Add review', new_rating_path(id: @mylandlord.id)
 			#reviewtitle
 				Reviews about #{@mylandlord.name}
 			%br
