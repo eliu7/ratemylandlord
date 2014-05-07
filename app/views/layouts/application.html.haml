@@ -16,10 +16,13 @@
           - if flash[:error]
             #error.message= flash[:error]
           -if current_user
+            %br
+        
+ 
             #login_info
               = "Signed in as #{current_user.name}"
               %br
-              = link_to 'logout', signout_path(redirect: request.env['PATH_INFO'])
+              =button_to 'Logout', signout_path(redirect: request.env['PATH_INFO'])
           -else
             %br
             -if flash[:loginerror]
