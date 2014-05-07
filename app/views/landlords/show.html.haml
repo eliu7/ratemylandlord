@@ -31,39 +31,15 @@
 										%br
 										%br
 										#reviewnum
-											General:
-											- review.general.times do |x|
-												%img(src="/assets/bearcat.png")
-											- (5 - review.general).times do |x|
-												%img(src="/assets/bearcat.png" class="opp")
-											%br
-											Helpfulness:
-											- review.helpfulness.times do |x|
-												%img(src="/assets/bearcat.png")
-											- (5 - review.helpfulness).times do |x|
-												%img(src="/assets/bearcat.png" class="opp")
-											%br
-											#reviewnum
-											Friendliness:
-											- review.friendliness.times do |x|
-												%img(src="/assets/bearcat.png")
-											- (5 - review.friendliness).times do |x|
-												%img(src="/assets/bearcat.png" class="opp")
-											%br
-											#reviewnum
-											Availability:
-											- review.availability.times do |x|
-												%img(src="/assets/bearcat.png")
-											- (5 - review.availability).times do |x|
-												%img(src="/assets/bearcat.png" class="opp")
-											%br
+											- Rating.categories.each do |cat|
+												= "#{cat.to_s.capitalize}:"
+												- review[cat].times do |x|
+													%img(src='/assets/bearcat.png')
+												- (5 - review[cat]).times do |x|
+													%img(src='/assets/bearcat.png' class='opp')
 									%td#reviewsum
 										#{review.comment} 	
 	
 									- x = x+1
 			#Pagenums
 				= link_to '1', landlord_path(:id => params[:id], :page => 1)
-	
-
-					
-
