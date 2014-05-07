@@ -15,10 +15,14 @@ class LandlordsController < ApplicationController
     @avg_reviews=@mylandlord.average_ratings
     @color_func = lambda do |rating|
       case rating
-      when (3.5..5)
+      when (4..5)
         'greenback'
-      when (2..3.4)
-        'yellowback'
+      when (3..3.9)
+	'greenyellowback'
+      when (2..2.9)
+	'yellowback'
+      when (1..1.9)
+        'redyellowback'
       else
         'redback'
       end

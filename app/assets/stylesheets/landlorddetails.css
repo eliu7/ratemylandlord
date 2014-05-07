@@ -70,15 +70,23 @@
 }
 
 .greenback{
-	background:#2EB82E;
+	background:#007A29;
+}
+
+.greenyellowback{
+	background:#99FF99;
 }
 
 .yellowback{
 	background:#FFFF66;
 }
 
+.redyellowback{
+	background:#FF6600;
+}
+
 .redback{
-	background:#FF3333;
+	background:#FF0000;
 }
 
 tr{
