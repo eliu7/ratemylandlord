@@ -10,7 +10,9 @@ class LandlordsController < ApplicationController
   def show
     landlord_id = params[:id]
     pagenum = (params[:page] || '1').to_i
+    logger.info "HI"
     @mylandlord = Landlord.find(landlord_id)
+    logger.info "HELLO"
     @reviews = @mylandlord.ratings(pagenum)
     @avg_reviews=@mylandlord.average_ratings
     @color_func = lambda do |rating|
@@ -28,6 +30,7 @@ class LandlordsController < ApplicationController
       end
     end
     @user_id = current_user.id unless current_user.nil?
+    @not_rated = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
   end
 
   def destroy

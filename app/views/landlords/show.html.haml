@@ -1,4 +1,3 @@
-!!
 %html{lang: "en"}
 	%head
 		%meta{charset: "utf-8"}/
@@ -18,7 +17,10 @@
 						= cat.to_s.capitalize
 			%br
 			%br
-			= link_to 'Add review', new_rating_path(id: @mylandlord.id)
+			- if @not_rated
+				= link_to 'Add review', new_rating_path(id: @mylandlord.id)
+			- else
+				You have already rated this landlord
 			#reviewtitle
 				Reviews about #{@mylandlord.name}
 			%br
