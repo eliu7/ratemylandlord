@@ -50,7 +50,11 @@
 			#pagenums
 				-if(@pagetotal >1)
 					= link_to '<<', landlord_path(:page => 1, :id => @mylandlord.id)
-					= link_to '>>', landlord_path(:page => 1, :id => @mylandlord.id)
+					-5.times do |i|
+						-page=@pagenum-2+i
+						-if(page >0 && page <= @pagetotal)
+							= link_to page, landlord_path(:page => page, :id => @mylandlord.id)
+					= link_to '>>', landlord_path(:page => @pagetotal, :id => @mylandlord.id)
 			%br
 	#widget-wrap.group
 	%footer.group

@@ -120,5 +120,7 @@ table{
 }
 
 #pagenums{
+	letter-spacing:6px;
+	font-size:18px;
 	text-align:center;
 }
