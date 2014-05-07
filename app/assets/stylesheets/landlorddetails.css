@@ -94,7 +94,7 @@ td{
 	border:inherit;
 	padding-top: .5em;
    	padding-bottom: .5em;
-	display: inline-block;
+	/*display: inline-block;*/
 }
 
 #reviewnum{
