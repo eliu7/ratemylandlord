@@ -27,4 +27,13 @@ class RatingsController < ApplicationController
 
     redirect_to landlord_path(id: id)
   end
+  def destroy
+    rating = Rating.find(params[:id])
+    lid = rating.landlord_id
+    if rating
+      Rating.where(id: rating.id).destroy_all
+      rating.destroy
+    end
+    redirect_to landlord_path(:page => 1, :id => lid)
+  end
 end

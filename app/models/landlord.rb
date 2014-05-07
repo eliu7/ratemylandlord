@@ -1,7 +1,7 @@
 class Landlord < ActiveRecord::Base
   #Gets all of the ratings for the landlord
   def ratings(page = nil)
-    ratings = Rating.where(landlord_id: id)
+    ratings = Rating.where(landlord_id: id).order('created_at DESC')
     return ratings if page.nil?
     return ratings.limit(20).offset((page-1)*20)
   end
