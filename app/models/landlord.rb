@@ -3,9 +3,13 @@ class Landlord < ActiveRecord::Base
   def ratings(page = nil)
     ratings = Rating.where(landlord_id: id).order('created_at DESC')
     return ratings if page.nil?
-    return ratings.limit(20).offset((page-1)*20)
+    return ratings.limit(10).offset((page-1)*10)
   end
 
+
+  def ratingstotal
+    return Rating.where(landlord_id: id).count
+  end
   #Calculates the average ratings for the landlord
   def average_ratings
     avgs = Hash.new(0)
