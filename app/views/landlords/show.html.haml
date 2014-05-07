@@ -23,6 +23,7 @@
 				You have already rated this landlord
 			#reviewtitle
 				Reviews about #{@mylandlord.name}
+			%hr
 			%br
 				#reviewcontainer
 					- x=1
@@ -47,6 +48,16 @@
 										%td
 											=link_to image_tag("red-x-icon.png"), rating_path(review.id), :method => :delete, :confirm => 'Are you sure?'
 									- x = x+1
+			%br
+			%br
 			#pagenums
-				= link_to '<<', landlord_path(:page => 1, :id => @mylandlord.id)
-				= link_to '>>', landlord_path(:page => 1, :id => @mylandlord.id)
+				-if(@pagetotal >1)
+					= link_to '<<', landlord_path(:page => 1, :id => @mylandlord.id)
+					-5.times do |i|
+						-page=@pagenum-2+i
+						-if(page >0 && page <= @pagetotal)
+							= link_to page, landlord_path(:page => page, :id => @mylandlord.id)
+					= link_to '>>', landlord_path(:page => @pagetotal, :id => @mylandlord.id)
+			%br
+	#widget-wrap.group
+	%footer.group

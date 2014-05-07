@@ -52,12 +52,6 @@
 	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	font-size:20px;
 	font-weight: bold;
-	border-bottom-width:5px;
-	border-top-width:0px;
-	border-left-width:0px;
-	border-right-width:0px;
-	border-style:solid;
-	border-color:#009933;
 }
 
 #review{
@@ -70,11 +64,11 @@
 }
 
 .greenback{
-	background:#007A29;
+	background:#2EB82E;
 }
 
 .greenyellowback{
-	background:#99FF99;
+	background:#80FF00;
 }
 
 .yellowback{
@@ -86,7 +80,7 @@
 }
 
 .redback{
-	background:#FF0000;
+	background:#FF3333;
 }
 
 tr{
@@ -100,6 +94,7 @@ td{
 	border:inherit;
 	padding-top: .5em;
    	padding-bottom: .5em;
+	/*display: inline-block;*/
 }
 
 #reviewnum{
@@ -116,7 +111,8 @@ td{
 	font-size:18px;
 	text-align:left;
 	width:525px;
-	word-wrap:break-word;
+	word-break: break-all;
+	word-wrap: break-word;
 }
 
 table{
@@ -124,5 +120,7 @@ table{
 }
 
 #pagenums{
+	letter-spacing:6px;
+	font-size:18px;
 	text-align:center;
 }
