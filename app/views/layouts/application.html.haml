@@ -3,7 +3,6 @@
   %head
     %title Rate My Landlord
     %meta{charset: "utf-8"}/
-    %link{href: "style.css", rel: "stylesheet"}/
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -22,7 +21,7 @@
             #login_info
               = "Signed in as #{current_user.name}"
               %br
-              =button_to 'Logout', signout_path(redirect: request.env['PATH_INFO'])
+              =button_to 'Logout', signout_path(redirect: request.env['PATH_INFO']), method: :get
           -else
             %br
             -if flash[:loginerror]

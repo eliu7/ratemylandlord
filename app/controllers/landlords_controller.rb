@@ -30,6 +30,7 @@ class LandlordsController < ApplicationController
       end
     end
     @user_id = current_user.id unless current_user.nil?
+    @not_rated = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
   end
 
   def destroy
