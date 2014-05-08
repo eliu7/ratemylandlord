@@ -17,10 +17,11 @@
 						= cat.to_s.capitalize
 			%br
 			%br
-			- if @not_rated
-				= link_to 'Add review', new_rating_path(id: @mylandlord.id)
-			- else
-				You have already rated this landlord
+			- if current_user
+				- unless @rated
+					= link_to 'Add review', new_rating_path(id: @mylandlord.id)
+				- else
+					You have already rated this landlord
 			#reviewtitle
 				Reviews about #{@mylandlord.name}
 			%hr
