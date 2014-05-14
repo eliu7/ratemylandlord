@@ -11,5 +11,7 @@ Ratemylandlord::Application.routes.draw do
   get '/revoke' => 'admin#revoke', as: 'revoke_admin'
   post '/make' => 'admin#make', as: 'make_admin'
 
+  get '/about' => 'about#index', as: 'about'
+
   root :to => 'welcome#index'
 end
