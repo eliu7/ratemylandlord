@@ -1,9 +1,10 @@
+#Controller for the landlord list and each individual landlord page
 class LandlordsController < ApplicationController
   def index
-    if params[:search] == nil
-      @landlords = Landlord.all
-    else
+    if params[:search]
       @landlords = Landlord.search(params[:search])
+    else
+      @landlords = Landlord.all
     end
   end
 
@@ -30,7 +31,7 @@ class LandlordsController < ApplicationController
     @avg_reviews=@mylandlord.average_ratings
     numreviews =@mylandlord.ratings.count
     @pagetotal = (numreviews/10.0).ceil
-    @user_id = current_user.id unless current_user.nil?
+    @user_id = current_user.id if current_user
     @rated = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
   end
 

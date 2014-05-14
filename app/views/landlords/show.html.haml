@@ -19,7 +19,7 @@
 			%br
 			- if current_user
 				- unless @rated
-					= link_to 'Add review', new_rating_path(id: @mylandlord.id)
+					= link_to image_tag("review.png"), new_rating_path(id: @mylandlord.id)
 				- else
 					You have already rated this landlord
 			#reviewtitle
@@ -43,6 +43,7 @@
 													%img(src='/assets/bearcat.png')
 												- (5 - review[cat]).times do |x|
 													%img(src='/assets/bearcat.png' class='opp')
+												%br
 									%td#reviewsum
 										#{review.comment} 
 									- if(admin? || ((current_user && current_user.id) == review.user_id))

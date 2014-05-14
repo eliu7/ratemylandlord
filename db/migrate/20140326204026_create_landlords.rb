@@ -1,8 +1,9 @@
+#This will create or drop the table with the string and timestamp to represent landlords
 class CreateLandlords < ActiveRecord::Migration
   def up
-    create_table :landlords do |t|
-      t.string :name
-      t.timestamps
+    create_table :landlords do |person|
+      person.string :name
+      person.timestamps
     end
   end
 

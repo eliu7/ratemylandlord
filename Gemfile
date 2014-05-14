@@ -37,7 +37,7 @@ end
 
 gem 'jquery-rails'
 gem 'haml'
-
+gem 'mail_form', ">= 1.3.0"
 # Use unicorn as the web server
 # gem 'unicorn'
 
