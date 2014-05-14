@@ -1,0 +1,18 @@
+#=begin 
+Before('@omniauth_test') do
+  OmniAuth.config.test_mode = true
+
+  OmniAuth.config.mock_auth[:google] = {
+    "provider" => "google",
+      "uid" => "1",
+      "email" => "example@binghamton.edu"
+
+  }
+
+end
+
+After("@omniauth_test") do
+  OmniAuth.config.test_mode = false
+end
+
+#=end
