@@ -1,3 +1,4 @@
+#Contoller for the assigning admins page
 class AdminController < ApplicationController
   def index
     if require_admin
