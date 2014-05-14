@@ -13,6 +13,6 @@ Ratemylandlord::Application.routes.draw do
 
   get '/about' => 'about#index', as: 'about'
   get '/contact' => 'contact#index', as: 'contact'
-  post '/create' => 'contact#create', as: 'contact'
+
   root :to => 'welcome#index'
 end
