@@ -30,10 +30,7 @@ class RatingsController < ApplicationController
   def destroy
     rating = Rating.find(params[:id])
     lid = rating.landlord_id
-    if rating
-      Rating.where(id: rating.id).destroy_all
-      rating.destroy
-    end
+    rating.destroy
     redirect_to landlord_path(:page => 1, :id => lid)
   end
 end

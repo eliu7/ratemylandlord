@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    logger.info "Redirect: #{params[:redirect].inspect}"
     session[:user_id] = nil
     redirect_to (params[:redirect] || root_path)
   end

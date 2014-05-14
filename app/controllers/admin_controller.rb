@@ -2,7 +2,6 @@ class AdminController < ApplicationController
   def index
     if require_admin
       @admins = User.where(:admin => true)
-      @nonadmins = User.where(:admin => false)
     end
   end
   def revoke

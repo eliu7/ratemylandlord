@@ -32,15 +32,12 @@ class LandlordsController < ApplicationController
     @pagetotal = (numreviews/10.0).ceil
     @user_id = current_user.id unless current_user.nil?
     @rated = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
-    logger.info "Rated: #{@not_rated.inspect}"
   end
 
   def destroy
     landlord = Landlord.find(params[:id])
-    if landlord
-      Rating.where(landlord_id: landlord.id).destroy_all
-      landlord.destroy
-    end
+    Rating.where(landlord_id: landlord.id).destroy_all
+    landlord.destroy
     redirect_to landlords_path
   end
 end
