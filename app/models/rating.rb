@@ -1,3 +1,4 @@
+#Rating model
 class Rating < ActiveRecord::Base
   #Gets the rating categories
   def self.categories

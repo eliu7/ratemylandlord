@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   # If the user is not signed in, redirect to another page and return false
   # otherwise return true
   def require_sign_in(page = '/')
-    unless curent_user
+    unless current_user
       flash[:error] = 'You must be signed in to access that page'
       redirect_to page
       return false

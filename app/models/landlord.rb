@@ -1,8 +1,9 @@
+#Landlord model
 class Landlord < ActiveRecord::Base
   # Gets all of the ratings for the landlord
   def ratings(page = nil)
     ratings = Rating.where(landlord_id: id).order('created_at DESC')
-    return ratings if page.nil?
+    return ratings unless page
     return ratings.limit(10).offset((page-1)*10)
   end
 
@@ -10,14 +11,14 @@ class Landlord < ActiveRecord::Base
   def average_ratings
     avgs = Hash.new(0)
     categories = Rating.categories
-    rs = ratings
-    rs.each do |r|
-      categories.each { |c| avgs[c] += r.send(c) }
+    ratesset = ratings
+    ratesset.each do |rate|
+      categories.each { |catigory| avgs[catigory] += rate.send(catigory) }
     end
 
-    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : (v.to_f/rs.length).round(1) }
+    avgs.each { |k, v| avgs[k] = ratesset.empty? ? 0 : (v.to_f/ratesset.length).round(1) }
 
-    categories.map { |c| avgs[c] }
+    categories.map { |catigory| avgs[catigory] }
   end
 
   # Searches for landlords whose name contains the given string
@@ -32,13 +33,13 @@ class Landlord < ActiveRecord::Base
 
     # Get 
     sorted = []
-    landlords.each do |l|
-      newname = l.name.downcase
+    landlords.each do |lord|
+      newname = lord.name.downcase
       # Reverse last names with first names ('John Doe' -> 'Doe John')
       newname = newname.split.reverse.join(' ') if reverse
       pos = newname.index(string)
       next if pos.nil? # This shouldn't happen
-      sorted << [l, pos]
+      sorted << [lord, pos]
     end
     
     # Sort by search position
