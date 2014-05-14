@@ -1,17 +1,18 @@
+#This will create or drop the table containg the ratings for every landlord
 class CreateRatings < ActiveRecord::Migration
   def up
-    create_table :ratings do |t|
-      t.integer :user_id
-      t.integer :landlord_id
+    create_table :ratings do |rating|
+      rating.integer :user_id
+      rating.integer :landlord_id
       
-      t.integer :general
-      t.integer :helpfulness
-      t.integer :friendliness
-      t.integer :availability
+      rating.integer :general
+      rating.integer :helpfulness
+      rating.integer :friendliness
+      rating.integer :availability
 
-      t.string :comment
+      rating.string :comment
 
-      t.timestamps
+      rating.timestamps
     end
   end
 

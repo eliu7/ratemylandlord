@@ -30,9 +30,13 @@
         %nav.group
           %ul
             %li.home
-              %a{href: "/", title: ""} Home
+              =link_to 'Home', root_path
             %li
               =link_to 'Landlords', landlords_path
+            %li
+              =link_to 'About', about_path
+            %li
+              =link_to 'Contact', contact_path
             -if admin?
               %li
                 =link_to 'Admin', admin_path

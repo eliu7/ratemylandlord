@@ -1,13 +1,14 @@
+#Controller to handle user ratings
 class RatingsController < ApplicationController
   def new
     if require_sign_in
-      @landlord = Landlord.find(params[:id]) unless params[:id].nil?
+      @landlord = Landlord.find(params[:id]) if params[:id]
     end
   end
 
   def create
     id = params[:id]
-    if id.nil?
+    unless id
       landlord = Landlord.new
       landlord.name = params[:landlord][:name]
       landlord.save
@@ -30,10 +31,7 @@ class RatingsController < ApplicationController
   def destroy
     rating = Rating.find(params[:id])
     lid = rating.landlord_id
-    if rating
-      Rating.where(id: rating.id).destroy_all
-      rating.destroy
-    end
+    rating.destroy
     redirect_to landlord_path(:page => 1, :id => lid)
   end
 end

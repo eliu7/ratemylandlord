@@ -1,15 +1,16 @@
+#This will create or drop the table containg the users for the ratemylandlord site
 class CreateUsers < ActiveRecord::Migration
   def change
-    create_table :users do |t|
-      t.string :provider
-      t.string :uid
-      t.string :name
-      t.string :email
-      t.string :oauth_token
-      t.boolean :admin
-      t.datetime :oauth_expires_at
+    create_table :users do |user|
+      user.string :provider
+      user.string :uid
+      user.string :name
+      user.string :email
+      user.string :oauth_token
+      user.boolean :admin
+      user.datetime :oauth_expires_at
 
-      t.timestamps
+      user.timestamps
     end
   end
 end

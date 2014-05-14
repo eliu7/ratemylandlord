@@ -1,0 +1,13 @@
+#about-wrap{
+  width: 800px;
+  margin-left:auto;
+  margin-right:auto;
+}
+#about-wrap p{
+  text-align:left;
+  font-size: 18px;
+}
+#about-wrap h2{
+  text-align:center;
+  font-size:30px;
+}

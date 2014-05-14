@@ -1,3 +1,4 @@
+#controller for a user session, etc
 class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(env["omniauth.auth"])
@@ -11,7 +12,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    logger.info "Redirect: #{params[:redirect].inspect}"
     session[:user_id] = nil
     redirect_to (params[:redirect] || root_path)
   end

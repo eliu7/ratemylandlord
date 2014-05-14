@@ -15,10 +15,11 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'simplecov'
 end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
   gem 'cucumber-rails-training-wheels'
 end
 group :production do
@@ -36,7 +37,7 @@ end
 
 gem 'jquery-rails'
 gem 'haml'
-
+gem 'mail_form', ">= 1.3.0"
 # Use unicorn as the web server
 # gem 'unicorn'
 
