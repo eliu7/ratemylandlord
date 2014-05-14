@@ -11,7 +11,7 @@
 			%br
 			#reviewslist
 				- Rating.categories.each_with_index do |cat, i|
-					#listelem{class: @color_func.call(@avg_reviews[i])}
+					#listelem{class: controller.get_color(@avg_reviews[i])}
 						#listelemnum
 							= @avg_reviews[i]
 						= cat.to_s.capitalize
