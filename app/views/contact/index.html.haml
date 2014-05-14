@@ -1,2 +1,11 @@
 #container
-  contact page
+  = form_tag contact_path do |f|
+    = label :name, "Name"
+    = text_field :message, :name
+    = label :email, 'Email'
+    = text_field :message, :email
+    = label :message_title, "Title"
+    = text_field :message, :message_title
+    = label :message_body, "Message"
+    = text_field :message, :message_body
+    = submit_tag 'Submit'
