@@ -19,7 +19,7 @@
 			%br
 			- if current_user
 				- unless @rated
-					= link_to 'Add review', new_rating_path(id: @mylandlord.id)
+					= link_to image_tag("review.png"), new_rating_path(id: @mylandlord.id)
 				- else
 					You have already rated this landlord
 			#reviewtitle
