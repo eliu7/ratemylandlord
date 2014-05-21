@@ -1,30 +1,30 @@
-#Create landlords
-landlords = [
-  "Kevin Johnson",
-  "Adam Heimowitz",
-  "Michael Zagreda"
-]
-landlords.each { |l| Landlord.create(name: l) }
+def randstr(length)
+  (0..length).map { (97+rand(26)).chr }.join
+end
 
-#Create users
-users = [
-  #Name     email    Admin
-  ["kevin", "k@b.e", true],
-  ["adam",  "a@b.e", true],
-  ["mike",  "m@b.e", false],
-]
-users.each { |(n, e, a)| User.create(name: n, email: e, admin: a) }
+def randname
+  first = randstr(rand(6)+4)
+  last = randstr(rand(6)+4)
+  "#{first.capitalize} #{last.capitalize}"
+end
 
-#Create ratings
-ratings = [
-  #Landlord User  Ratings     Comment
-  [1,       1,    [4,3,5,2],  "He is super cool"],
-  [1,       2,    [1,1,1,1],  "He is stupid"],
-  [1,       3,    [5,4,3,2],  "I AM MIKE"]
-]
-ratings.each do |(l, u, (gen, help, friend, avail), c)|
-  Rating.create(landlord_id: l, user_id: u,
-                general: gen, helpfulness: help,
-                friendliness: friend, availability: avail,
-                comment: c)
+(1..100).map do |i|
+  landlord = Landlord.new
+  landlord.name = randname
+  landlord.rating_count = 0
+  landlord.average_rating = 0
+  landlord.save
+  next landlord
+end.
+
+each do |landlord|
+  num = rand(40)+5
+  num.times do |i|
+    rating = Rating.new
+    Rating.categories.each { |cat| rating[cat] = rand(5)+1 }
+    rating.landlord_id = landlord.id
+    rating.user_id = 1
+    rating.comment = "Comment #{i}"
+    rating.save
+  end
 end

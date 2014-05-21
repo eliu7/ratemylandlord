@@ -41,7 +41,7 @@
               %li
                 =link_to 'Admin', admin_path
             %li.last
-              = form_tag landlords_path, method: 'get' do
+              %form{action: landlords_path, method: 'get'}
                 %input{name: "search", placeholder: "search", type: "text"}/
                 %input.search{type: "submit", value: "go"}/
     / end header wrap

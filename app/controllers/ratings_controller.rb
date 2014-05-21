@@ -11,6 +11,8 @@ class RatingsController < ApplicationController
     unless id
       landlord = Landlord.new
       landlord.name = params[:landlord][:name]
+      landlord.rating_count = 0
+      landlord.average_rating = 0
       landlord.save
       id = landlord.id
     end

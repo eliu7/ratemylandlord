@@ -4,6 +4,7 @@ class Landlord < ActiveRecord::Base
   def ratings(page = nil)
     ratings = Rating.where(landlord_id: id).order('created_at DESC')
     return ratings unless page
+    logger.info "Page not nil, is #{page}"
     return ratings.limit(10).offset((page-1)*10)
   end
 
@@ -11,14 +12,25 @@ class Landlord < ActiveRecord::Base
   def average_ratings
     avgs = Hash.new(0)
     categories = Rating.categories
-    ratesset = ratings
-    ratesset.each do |rate|
-      categories.each { |catigory| avgs[catigory] += rate.send(catigory) }
+    rs = ratings
+    rs.each do |rate|
+      categories.each { |cat| avgs[cat] += rate.send(cat) }
     end
 
-    avgs.each { |k, v| avgs[k] = ratesset.empty? ? 0 : (v.to_f/ratesset.length).round(1) }
+    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : (v.to_f/rs.length).round(1) }
 
-    categories.map { |catigory| avgs[catigory] }
+    categories.map { |cat| avgs[cat] }
+  end
+
+  def update_rating_info(rating)
+    self.average_rating = (self.average_rating*self.rating_count+rating.average)/
+                          (self.rating_count+1)
+    self.rating_count+=1
+    self.save
+  end
+
+  def self.search_from(string, from)
+    from.where('LOWER(name) LIKE :s', s: "%#{string.downcase}%")
   end
 
   # Searches for landlords whose name contains the given string

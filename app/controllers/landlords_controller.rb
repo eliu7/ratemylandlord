@@ -1,11 +1,39 @@
 #Controller for the landlord list and each individual landlord page
 class LandlordsController < ApplicationController
   def index
-    if params[:search]
-      @landlords = Landlord.search(params[:search])
-    else
-      @landlords = Landlord.all
+    pagesize = 20
+    @page = (params[:page] || '1').to_i
+    @sort = params[:sort]
+    @search = params[:search]
+    @search = nil if @search && @search.empty?
+    if (@sort && @sort != 'Relevence') || (@sort.nil? && @search.nil?)
+      @sort||='Name A-Z'
+      sorts = {'Name A-Z' => ['name ASC'], 'Name Z-A' => ['name DESC'],
+               'Best Rating' => ['average_rating DESC', 'name ASC'],
+               'Worst Rating' => ['average_rating ASC', 'name DESC']}
+      @landlords = Landlord.order(*sorts[@sort])
     end
+    if @search
+      if @landlords
+        @landlords = Landlord.search_from(@search, @landlords)
+        @count = @landlords.count
+        @landlords = @landlords.limit(pagesize).offset((@page-1)*pagesize)
+      else
+        @sort = 'Relevence'
+        @landlords = Landlord.search(@search)
+        @count = @landlords.count
+        @landlords = @landlords.drop((@page-1)*pagesize).take(pagesize)
+      end
+    else
+      @count = @landlords.count
+      @landlords = @landlords.limit(pagesize).offset((@page-1)*pagesize)
+    end
+    @page_count = (@count-1)/pagesize+1
+
+    @range = [((@page-1)*pagesize+1),@count].min..[@page*pagesize, @count].min
+
+    @sorts = ['Name A-Z', 'Name Z-A', 'Best Rating', 'Worst Rating']
+    @sorts.unshift('Relevence') if @search
   end
 
   def get_color(rating)
@@ -24,15 +52,18 @@ class LandlordsController < ApplicationController
   end
 
   def show
+    pagesize = 10
     landlord_id = params[:id]
-    @pagenum = (params[:page] || '1').to_i
+    @page = (params[:page] || '1').to_i
     @mylandlord = Landlord.find(landlord_id)
-    @reviews = @mylandlord.ratings(@pagenum)
+    @reviews = @mylandlord.ratings(@page)
     @avg_reviews=@mylandlord.average_ratings
-    numreviews =@mylandlord.ratings.count
-    @pagetotal = (numreviews/10.0).ceil
+    @count = @mylandlord.rating_count
+    @page_count = (@count-1)/pagesize+1
     @user_id = current_user.id if current_user
     @rated = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
+    logger.info "Page #{@page} Count #{@page_count}"
+    @range = [((@page-1)*pagesize+1),@count].min..[@page*pagesize, @count].min
   end
 
   def destroy

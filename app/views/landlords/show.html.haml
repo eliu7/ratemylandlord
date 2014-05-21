@@ -20,8 +20,11 @@
 			- if current_user
 				- unless @rated
 					= link_to image_tag("review.png"), new_rating_path(id: @mylandlord.id)
+					%br
 				- else
 					You have already rated this landlord
+					%br
+			= "Showing #{@range.begin}-#{@range.end} of #{@count}"
 			#reviewtitle
 				Reviews about #{@mylandlord.name}
 			%hr
@@ -53,13 +56,7 @@
 			%br
 			%br
 			#pagenums
-				-if(@pagetotal >1)
-					= link_to '<<', landlord_path(:page => 1, :id => @mylandlord.id)
-					-5.times do |i|
-						-page=@pagenum-2+i
-						-if(page >0 && page <= @pagetotal)
-							= link_to page, landlord_path(:page => page, :id => @mylandlord.id)
-					= link_to '>>', landlord_path(:page => @pagetotal, :id => @mylandlord.id)
+				=pagify(@page, @page_count, :landlord_path, id: @mylandlord.id)
 			%br
 	#widget-wrap.group
 
