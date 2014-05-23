@@ -1,6 +1,7 @@
 #Rating model
 class Rating < ActiveRecord::Base
-  after_save :update_landlord_info
+  after_save     :on_save
+  before_destroy :on_destroy
 
   #Gets the rating categories
   def self.categories
@@ -13,16 +14,22 @@ class Rating < ActiveRecord::Base
 
   #Gets the landlord that this rating is for
   def landlord
-    Landlord.find(landlord_id)
+    Landlord.find_by_id(landlord_id)
   end
 
   #Gets the user that submitted the rating
   def user
-    User.find(user_id)
+    User.find_by_id(user_id)
   end
 
 private
-  def update_landlord_info
-    self.landlord.update_rating_info(self)
+  def on_save
+    landlord = self.landlord
+    landlord.add_rating(self) if landlord
+  end
+
+  def on_destroy
+    landlord = self.landlord
+    landlord.remove_rating(self) if landlord
   end
 end

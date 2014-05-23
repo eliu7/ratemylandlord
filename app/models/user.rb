@@ -1,7 +1,5 @@
 #User model
 class User < ActiveRecord::Base
-  #attr_accessible :email, :name, :oauth_expires_at, :oauth_token, :provider, :uid
-
   #Gets all of the ratings the user submitted
   def ratings
     Rating.where(user_id: id)

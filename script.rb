@@ -8,17 +8,14 @@ def randname
   "#{first.capitalize} #{last.capitalize}"
 end
 
-(1..100).map do |i|
+30.times do
   landlord = Landlord.new
   landlord.name = randname
   landlord.rating_count = 0
   landlord.average_rating = 0
   landlord.save
-  next landlord
-end.
 
-each do |landlord|
-  num = rand(40)+5
+  num = rand(20)+5
   num.times do |i|
     rating = Rating.new
     Rating.categories.each { |cat| rating[cat] = rand(5)+1 }

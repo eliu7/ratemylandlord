@@ -68,7 +68,6 @@ class LandlordsController < ApplicationController
 
   def destroy
     landlord = Landlord.find(params[:id])
-    Rating.where(landlord_id: landlord.id).destroy_all
     landlord.destroy
     redirect_to landlords_path
   end

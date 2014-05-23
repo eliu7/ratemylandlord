@@ -1,5 +1,7 @@
 #Landlord model
 class Landlord < ActiveRecord::Base
+  after_destroy :remove_ratings
+
   # Gets all of the ratings for the landlord
   def ratings(page = nil)
     ratings = Rating.where(landlord_id: id).order('created_at DESC')
@@ -22,10 +24,18 @@ class Landlord < ActiveRecord::Base
     categories.map { |cat| avgs[cat] }
   end
 
-  def update_rating_info(rating)
+  def add_rating(rating)
     self.average_rating = (self.average_rating*self.rating_count+rating.average)/
                           (self.rating_count+1)
     self.rating_count+=1
+    self.save
+  end
+
+  def remove_rating(rating)
+    self.average_rating = (self.average_rating*self.rating_count-rating.average)
+    self.rating_count-=1
+    self.average_rating = (self.rating_count == 0) ? 0 :
+                          self.average_rating/self.rating_count
     self.save
   end
 
@@ -57,5 +67,11 @@ class Landlord < ActiveRecord::Base
     # Sort by search position
     sorted.sort! { |a, b| a[1] <=> b[1] }
     sorted.map {|a| a[0] }
+  end
+
+private
+  def remove_ratings
+    #Calling delete instead of destroy to prevent the callback
+    self.ratings.delete_all
   end
 end
