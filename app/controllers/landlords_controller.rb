@@ -61,8 +61,7 @@ class LandlordsController < ApplicationController
     @count = @mylandlord.rating_count
     @page_count = (@count-1)/pagesize+1
     @user_id = current_user.id if current_user
-    @rated = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
-    logger.info "Page #{@page} Count #{@page_count}"
+    @user_review = current_user && Rating.where(landlord_id: landlord_id, user_id: @user_id).first
     @range = [((@page-1)*pagesize+1),@count].min..[@page*pagesize, @count].min
   end
 

@@ -18,12 +18,14 @@
 			%br
 			%br
 			- if current_user
-				- unless @rated
-					= link_to image_tag("review.png"), new_rating_path(id: @mylandlord.id)
-					%br
-				- else
+				- if @user_review
 					You have already rated this landlord
-					%br
+					=link_to 'edit', edit_rating_path(id: @user_review.id)
+					=link_to 'delete', rating_path(@user_review.id), method: :delete, confirm: 'Delete your review? This cannot be undone.'
+               
+				- else
+					= link_to image_tag("review.png"), new_rating_path(id: @mylandlord.id)
+				%br
 			= "Showing #{@range.begin}-#{@range.end} of #{@count}"
 			#reviewtitle
 				Reviews about #{@mylandlord.name}
@@ -51,7 +53,7 @@
 										#{review.comment} 
 									- if(admin? || ((current_user && current_user.id) == review.user_id))
 										%td
-											=link_to image_tag("red-x-icon.png"), rating_path(review.id), :method => :delete, :confirm => 'Are you sure?'
+											=link_to image_tag("red-x-icon.png"), rating_path(review.id), :method => :delete, :confirm => 'Delete this review? This cannot be undone.'
 									- x = x+1
 			%br
 			%br

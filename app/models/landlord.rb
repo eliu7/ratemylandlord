@@ -39,6 +39,11 @@ class Landlord < ActiveRecord::Base
     self.save
   end
 
+  def update_rating(old, new)
+    self.average_rating = (self.average_rating*self.rating_count-old.average+new.average)/self.rating_count
+    self.save
+  end
+
   def self.search_from(string, from)
     from.where('LOWER(name) LIKE :s', s: "%#{string.downcase}%")
   end

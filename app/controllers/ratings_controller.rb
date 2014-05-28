@@ -36,4 +36,18 @@ class RatingsController < ApplicationController
     rating.destroy
     redirect_to landlord_path(:page => 1, :id => lid)
   end
+
+  def edit
+    @rating = Rating.find(params[:id])
+    if require_sign_in(@rating.user_id)
+      @landlord = @rating.landlord
+    end
+  end
+
+  def update
+    @rating = Rating.find(params[:id])
+    logger.info "Rating params: #{params[:rating]}"
+    @rating.update_attributes!(params[:rating])
+    redirect_to landlord_path(id: @rating.landlord_id)
+  end
 end

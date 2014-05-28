@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   # otherwise return true
   def require_admin(page = '/')
     unless admin?
-      flash[:error] = 'You must be an admin to access that page'
+      flash[:error] = 'You do not have permission to access that page'
       redirect_to page
       return false
     end
@@ -27,9 +27,9 @@ class ApplicationController < ActionController::Base
 
   # If the user is not signed in, redirect to another page and return false
   # otherwise return true
-  def require_sign_in(page = '/')
-    unless current_user
-      flash[:error] = 'You must be signed in to access that page'
+  def require_sign_in(id = nil, page = '/')
+    unless current_user && (id.nil? || current_user.id == id)
+      flash[:error] = 'You do not have permission to access that page'
       redirect_to page
       return false
     end

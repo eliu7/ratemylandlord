@@ -2,6 +2,7 @@
 class Rating < ActiveRecord::Base
   after_save     :on_save
   before_destroy :on_destroy
+  around_update :on_update
 
   #Gets the rating categories
   def self.categories
@@ -24,12 +25,27 @@ class Rating < ActiveRecord::Base
 
 private
   def on_save
+    logger.info "Saving rating!!!"
     landlord = self.landlord
     landlord.add_rating(self) if landlord
   end
 
   def on_destroy
+    logger.info "Destroying rating!!!"
     landlord = self.landlord
     landlord.remove_rating(self) if landlord
+  end
+
+  def on_update
+    logger.info "Updating rating!!!"
+    landlord = self.landlord
+    landlord.remove_rating(self) if landlord
+
+    old = Rating.new
+    Rating.categories.each { |cat| old[cat] = self[cat] }
+
+    yield
+
+    landlord.update_rating(old, self) if landlord
   end
 end
