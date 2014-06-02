@@ -4,11 +4,11 @@
     #landlords   
       - if current_user
         =link_to(image_tag("newlandlord.jpg", :class => "new-button"), new_rating_path)
-      %form{action: landlords_path, method: 'get'}
+      %form{:action => landlords_path, :method => 'get'}
         -if @search
-          %input{type: 'hidden', name: 'search', value: @search}
+          %input{:type => 'hidden', :name => 'search', :value => @search}
         =select_tag :sort, options_for_select(@sorts, @sort)
-        =submit_tag 'Refresh', name: nil
+        =submit_tag 'Refresh', :name => nil
       = "Showing #{@range.begin}-#{@range.end} of #{@count}"
       %table
         %tbody
@@ -21,7 +21,7 @@
           - alter = true
           - @landlords.each do |landlord|
             - alter = !alter
-            %tr{class: alter ? "alt" : nil}
+            %tr{:class => alter ? "alt" : nil}
               %td= link_to(landlord.name, landlord_path(:id => landlord.id))
               - landlord.average_ratings.each do |column|
                 %td= column
@@ -30,7 +30,7 @@
                 %td= link_to image_tag("red-x-icon.png"), landlord_path(landlord.id), :method => :delete, :confirm => "This will delete #{landlord.name} and all ratings associated with this landlord. This cannot be undone."
 
   #pagenums
-    =pagify(@page, @page_count, :landlords_path, search: @search, sort: params[:sort])
+    =pagify(@page, @page_count, :landlords_path, :search => @search, :sort => params[:sort])
   %br
   #widget-wrap.group
   %footer.group

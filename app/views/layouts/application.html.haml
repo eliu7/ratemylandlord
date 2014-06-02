@@ -2,7 +2,7 @@
 %html
   %head
     %title Rate My Landlord
-    %meta{charset: "utf-8"}/
+    %meta{:charset => "utf-8"}/
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -10,7 +10,7 @@
     #header-wrap
       %header.group
         %h2
-          %a{href: "/", title: "RateMyLandlord"} Rate My Landlord
+          %a{:href => "/", :title => "RateMyLandlord"} Rate My Landlord
         #login
           - if flash[:error]
             #error.message= flash[:error]
@@ -21,12 +21,12 @@
             #login_info
               = "Signed in as #{current_user.name}"
               %br
-              =button_to 'Logout', signout_path(redirect: request.env['PATH_INFO']), method: :get
+              =button_to 'Logout', signout_path(:redirect => request.env['PATH_INFO']), :method => :get
           -else
             %br
             -if flash[:loginerror]
               #error.message= flash[:loginerror]
-            = link_to image_tag('bmailsignin.png'), signin_path(redirect: request.env['PATH_INFO']), id: 'sign_in'
+            = link_to image_tag('bmailsignin.png'), signin_path(:redirect => request.env['PATH_INFO']), :id => 'sign_in'
         %nav.group
           %ul
             %li.home
@@ -41,9 +41,9 @@
               %li
                 =link_to 'Admin', admin_path
             %li.last
-              %form{action: landlords_path, method: 'get'}
-                %input{name: "search", placeholder: "search", type: "text"}/
-                %input.search{type: "submit", value: "go"}/
+              %form{:action => landlords_path, :method => 'get'}
+                %input{:name => "search", :placeholder => "search", :type => "text"}/
+                %input.search{:type => "submit", :value => "go"}/
     / end header wrap
     %br
     =yield
