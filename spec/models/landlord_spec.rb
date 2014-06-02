@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Landlord do
-  let(:landlord) { Landlord.create!(name: "Landlord Name") }
+  let(:landlord) { Landlord.create!(:name => "Landlord Name") }
 
   def make_rating(id, values)
-    Rating.create!(user_id: 0, landlord_id: id,
-      general: values[0], helpfulness: values[1],
-      friendliness: values[2], availability: values[3])
+    Rating.create!(:user_id => 0, :landlord_id => id,
+      :general => values[0], :helpfulness => values[1],
+      :friendliness => values[2], :availability => values[3])
   end
 
   context "with no ratings" do
@@ -56,7 +56,7 @@ describe Landlord do
   context "searching" do
     before(:each) do
       names = ['Kevin Johnson', 'John Kevinson', 'Kevin Jones']
-      @lls = names.map { |n| Landlord.create!(name: n) }
+      @lls = names.map { |n| Landlord.create!(:name => n) }
     end
     it "sorts landlords by search position in last name" do
       expect(Landlord.search('John')).to eq([@lls[0], @lls[1]])

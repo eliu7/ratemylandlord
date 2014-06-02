@@ -15,12 +15,12 @@ describe ApplicationController do
 
   describe "admin" do
     it "returns true for admin" do
-      user = User.create!(admin: true)
+      user = User.create!(:admin => true)
       controller.stub(:current_user) { user }
       expect(controller.admin?).to be_true
     end
     it "returns false for non-admin" do
-      user = User.create!(admin: false)
+      user = User.create!(:admin => false)
       controller.stub(:current_user) { user }
       expect(controller.admin?).to be_false
     end

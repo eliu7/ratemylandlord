@@ -4,8 +4,8 @@ describe User do
   context "ratings" do
     before(:each) do
       @user = User.create!
-      @ratings = Array.new(3) { Rating.create!(user_id: @user.id) }
-      @ratings << Rating.create!(user_id: @user.id+1)
+      @ratings = Array.new(3) { Rating.create!(:user_id => @user.id) }
+      @ratings << Rating.create!(:user_id => @user.id+1)
     end
     it "can get its ratings" do
       expect(@user.ratings).to eq(@ratings[0..-2])
@@ -15,7 +15,7 @@ describe User do
   context "authorization" do
     before(:each) do
       @auth = double('authorization')
-      @auth.stub(:slice).and_return({id: nil})
+      @auth.stub(:slice).and_return({:id => nil})
       @auth.stub(:provider).and_return nil
       @auth.stub(:uid).and_return nil
       @auth.stub_chain(:info, :name).and_return nil

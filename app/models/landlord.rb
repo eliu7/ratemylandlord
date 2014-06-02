@@ -4,7 +4,7 @@ class Landlord < ActiveRecord::Base
 
   # Gets all of the ratings for the landlord
   def ratings(page = nil)
-    ratings = Rating.where(landlord_id: id).order('created_at DESC')
+    ratings = Rating.where(:landlord_id => id).order('created_at DESC')
     return ratings unless page
     logger.info "Page not nil, is #{page}"
     return ratings.limit(10).offset((page-1)*10)
@@ -45,7 +45,7 @@ class Landlord < ActiveRecord::Base
   end
 
   def self.search_from(string, from)
-    from.where('LOWER(name) LIKE :s', s: "%#{string.downcase}%")
+    from.where('LOWER(name) LIKE :s', :s => "%#{string.downcase}%")
   end
 
   # Searches for landlords whose name contains the given string
@@ -53,7 +53,7 @@ class Landlord < ActiveRecord::Base
   def self.search(string)
     # Ignore case
     string = string.downcase
-    landlords = Landlord.where("LOWER(name) LIKE :s", s: "%#{string}%")
+    landlords = Landlord.where("LOWER(name) LIKE :s", :s => "%#{string}%")
 
     reverse = !(string.include? ' ')
     logger.info "Reverse: #{reverse}"

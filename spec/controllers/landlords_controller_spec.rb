@@ -16,7 +16,7 @@ describe LandlordsController do
     end
     it "searches if specified" do
       Landlord.should_receive(:search).with("something")
-      get :index, search: "something"
+      get :index, :search => "something"
     end
   end
 
@@ -26,7 +26,7 @@ describe LandlordsController do
     end
 
     it "shows the page" do
-      get :show, id: @landlord.id
+      get :show, :id => @landlord.id
       expect(response).to render_template('show')
     end
   end
@@ -37,8 +37,8 @@ describe LandlordsController do
     end
 
     it "destroys the landlord" do
-      get :destroy, id: @landlord.id
-      expect(Landlord.where(id: @landlord.id)).to be_empty
+      get :destroy, :id => @landlord.id
+      expect(Landlord.where(:id => @landlord.id)).to be_empty
     end
   end
 end

@@ -4,7 +4,7 @@ describe Rating do
   before(:each) do
     @landlord = Landlord.create!
     @user = User.create!
-    @rating = Rating.create!(user_id: @user.id, landlord_id: @landlord.id)
+    @rating = Rating.create!(:user_id => @user.id, :landlord_id => @landlord.id)
   end
 
   it "gets the landlord correctly" do

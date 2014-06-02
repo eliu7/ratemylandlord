@@ -28,7 +28,7 @@ class RatingsController < ApplicationController
     rating.comment = info[:comment]
     rating.save
 
-    redirect_to landlord_path(id: id)
+    redirect_to landlord_path(:id => id)
   end
   def destroy
     rating = Rating.find(params[:id])
@@ -48,6 +48,6 @@ class RatingsController < ApplicationController
     @rating = Rating.find(params[:id])
     logger.info "Rating params: #{params[:rating]}"
     @rating.update_attributes!(params[:rating])
-    redirect_to landlord_path(id: @rating.landlord_id)
+    redirect_to landlord_path(:id => @rating.landlord_id)
   end
 end

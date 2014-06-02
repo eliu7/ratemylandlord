@@ -16,7 +16,7 @@ class AdminController < ApplicationController
 
   def make
     if require_admin
-      User.where(email: params[:email]).first_or_initialize.tap do |user|
+      User.where(:email => params[:email]).first_or_initialize.tap do |user|
         user.admin = true
         user.email = params[:email]
         user.save!

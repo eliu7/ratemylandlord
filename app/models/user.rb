@@ -2,7 +2,7 @@
 class User < ActiveRecord::Base
   #Gets all of the ratings the user submitted
   def ratings
-    Rating.where(user_id: id)
+    Rating.where(:user_id => id)
   end
 
   def self.from_omniauth(auth)
