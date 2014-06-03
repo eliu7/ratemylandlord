@@ -31,3 +31,7 @@ table{
 table td{
   vertical-align:middle;
 }
+.show_ratings{
+	border-top:none;
+	border-right:none;
+}
