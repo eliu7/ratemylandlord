@@ -25,6 +25,9 @@ class Landlord < ActiveRecord::Base
   end
 
   def add_rating(rating)
+    logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    logger.info "Added rating!"
+    logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     self.average_rating = (self.average_rating*self.rating_count+rating.average)/
                           (self.rating_count+1)
     self.rating_count+=1
@@ -32,6 +35,9 @@ class Landlord < ActiveRecord::Base
   end
 
   def remove_rating(rating)
+    logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    logger.info "Removed rating!"
+    logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     self.average_rating = (self.average_rating*self.rating_count-rating.average)
     self.rating_count-=1
     self.average_rating = (self.rating_count == 0) ? 0 :
@@ -40,7 +46,15 @@ class Landlord < ActiveRecord::Base
   end
 
   def update_rating(old, new)
+    logger.info "-----------------------------"
+    logger.info "I am #{self.inspect}"
+    logger.info "Update:\n#{old.inspect}\n#{new.inspect}"
+    logger.info "Average: #{self.average_rating}\nCount: #{self.rating_count}"
     self.average_rating = (self.average_rating*self.rating_count-old.average+new.average)/self.rating_count
+    logger.info "Updated:"
+    logger.info "I am #{self.inspect}"
+    logger.info "Average: #{self.average_rating}\nCount: #{self.rating_count}"
+    logger.info "-----------------------------"
     self.save
   end
 

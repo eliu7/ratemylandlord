@@ -1,0 +1,6 @@
+#container
+  %h1= 'Edit Contact Page'
+  = form_tag contact_path, :method => :post do 
+    = text_area :contact, :text, :cols => 40, :rows => 15, :required => true, :value => @contact_text
+    %br
+    = submit_tag 'Update'

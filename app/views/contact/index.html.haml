@@ -1,25 +1,8 @@
 #container
   #about-wrap  
-    %h2= "Contact Us"
-    %p
-      Please feel free to contact us with any questions, comments, concerns, or suggestions
-      at any of the emails listed below. Thank you
-      %br
-      %br
-      Off Campus College Council:
-      %br
-      =mail_to 'oc3@binghamtonsa.org'
-      %br
-      %br
-      Milton Chester, Assistant Dean, Off Campus College:
-      %br
-      =mail_to 'mchester@binghamton.edu'
-      %br
-      %br
-      SA Webmaster:
-      %br
-      =mail_to 'webmaster@binghamtonsa.org'
-      %br
+    =@contact_text.html_safe
+    -if admin?
+      = link_to 'Edit', edit_contact_path, :method => :get
       %br
       %br
 #widget-wrap.group

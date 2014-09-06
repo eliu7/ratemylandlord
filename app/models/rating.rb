@@ -46,6 +46,8 @@ private
 
     yield
 
-    landlord.update_rating(old, self) if landlord
+    #landlord.add_rating(self) if landlord
+
+    #landlord.update_rating(old, self) if landlord
   end
 end
