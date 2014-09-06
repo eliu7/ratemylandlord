@@ -21,7 +21,7 @@ class Text < ActiveRecord::Base
         "  <a href=\"mailto:webmaster@binghamtonsa.org\">webmaster@binghamtonsa.org</a>\n" +
         "  <br>\n" +
         "  <br>\n" +
-        "  <br>\n"
+        "  <br>\n" +
         "<p>"
     end
   end
