@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
-      return nil unless auth.info.email.include? '@binghamton.edu'
+    where(:email => auth.info.email).first_or_initialize.tap do |user|
+      return nil unless auth.info.email.include?('@binghamton.edu') || user.admin
       user.provider = auth.provider
       user.uid = auth.uid
       user.admin = false unless user.email
