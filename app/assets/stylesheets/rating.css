@@ -5,8 +5,8 @@ h1{
 hr{
   margin-bottom:20px;
   height:5px;
-  color:#009933;
-  background-color:#009933;
+  color:#009999;
+  background-color:#009999;
 
 }
 form{
@@ -28,7 +28,8 @@ table{
   padding-top:10px;
 
 }
-table td{
+table.rate td{
+  border: 0px;
   vertical-align:middle;
 }
 .show_ratings{

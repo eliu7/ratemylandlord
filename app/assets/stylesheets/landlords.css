@@ -13,7 +13,7 @@ table{
 
 td,th{
   font-size:1.2em;
-  border:1px solid #04B404;
+  border:1px solid #80b0b0;
   padding:3px 7px 2px 7px;
   text-align:center;
 }
@@ -22,7 +22,7 @@ th{
   font-size:1.4em;
   padding-top:5px;
   padding-bottom:4px;
-  background-color:#509743;
+  background-color:#008080;
   color:#fff;
 }
 
@@ -32,7 +32,7 @@ tr{
 
 tr.alt td{
   color:#000;
-  background-color:#C1E4B5;
+  background-color: #b0e0e0;
 }
 a img.new-button{
   margin-left:600px;

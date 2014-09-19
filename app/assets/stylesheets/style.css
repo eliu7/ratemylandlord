@@ -39,7 +39,7 @@ strong{
 	font-weight: bold;
 }
 #header-wrap{
-	border-top: 10px solid #4d9543;
+	border-top: 10px solid #008080:
 	padding-top: 40px;
 }
 #login{
@@ -56,30 +56,46 @@ header h2 a{
 	display: block;
 	text-indent: -999999px;
 	background: url(logo.png) no-repeat;
-	width: 214px;
-	height: 77px;
+	width: 240px;
+	height: 60px;
 	float: left;
 	margin-bottom: 40px;
 }
+/*
+ 
+ Top:    #5fae53
+ Bottom: #3b7c33
+ Border: #336c2b
+
+ SepR: #336c2b
+ SepL: #78c368
+
+ Search:
+	Background: #4b9241;
+  Top: #346d2c
+  Bottom: #5ead52
+  Shadow: #387031
+
+ */
 nav{
 	clear: both;
 	width: 960px;
 	height: 50px;
 	-moz-border-radius: 30px;
 	-webkit-border-radius: 30px;
-	background-color: #3b7c33; /* Fallback */
+	background-color: #006666; /* Fallback */
 	border-radius: 30px;
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fae53), to(#3b7c33));
-	background-image: -webkit-linear-gradient(top, #5fae53, #3b7c33);
-	background-image: -moz-linear-gradient(top, #5fae53, #3b7c33);
-	background-image: -o-linear-gradient(top, #5fae53, #3b7c33);
-	border: 1px solid #336c2b;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#008080), to(#006666));
+	background-image: -webkit-linear-gradient(top, #008080, #006666);
+	background-image: -moz-linear-gradient(top, #008080, #006666);
+	background-image: -o-linear-gradient(top, #008080, #006666);
+	border: 1px solid #005959;
 }
 
 nav ul li{
 	float: left;
-	border-right: 1px solid #336c2b;
-	border-left: 1px solid #78c368;
+	border-right: 1px solid #005959;
+	border-left: 1px solid #00a0a0;
 }
 nav ul li.home{
 	border-left: none;
@@ -103,7 +119,7 @@ nav ul li a{
 	text-shadow: 0 1px 0 #387031;
 }
 nav ul li a:hover{
-	background: #5fae53;
+	background: #008080;
 }
 
 nav ul li.home a:hover{
@@ -111,17 +127,17 @@ nav ul li.home a:hover{
 	-webkit-border-bottom-left-radius: 30px;
 	border-top-left-radius: 30px;
 	border-bottom-left-radius: 30px;
-	background: #5fae53 url(home.png) no-repeat 50% 50%;
+	background: #008080 url(home.png) no-repeat 50% 50%;
 }
 nav ul li form input[type=text]{
   border-radius: 20px;
-	background: #4b9241;
+	background: #006666;
 	border-left: none;
 	border-right: none;
-	border-bottom: 1px solid #5ead52;
-	border-top: 1px solid #346d2c;
+	border-bottom: 1px solid #008080;
+	border-top: 1px solid #005959;
 	color: #fff;
-	text-shadow: 0 1px 0 #387031;
+	text-shadow: 0 1px 0 #006666;
 	padding: 5px 0 5px 20px;
 	width: 200px;
 }

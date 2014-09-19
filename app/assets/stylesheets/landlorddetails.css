@@ -44,7 +44,7 @@
 	border-left-width:0px;
 	border-right-width:2px;
 	border-style:solid;
-	border-color:#009933;
+	border-color:#009999;
 }
 
 #reviewtitle{
@@ -61,7 +61,7 @@
 }
 
 .greyback{
-	background:#C1E4B5;
+	background: #b5e4d8;
 }
 
 .greenback{
@@ -99,6 +99,7 @@ td{
 }
 
 #reviewnum{
+  border: 0px;
 	display:inline;
 }
 
@@ -107,6 +108,7 @@ td{
 }
 
 #reviewsum{
+  border: 0px;
 	padding-left: 35px;
 	background:inherit;
 	font-size:18px;
