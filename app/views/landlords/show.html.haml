@@ -17,6 +17,9 @@
             = cat.to_s.capitalize
       %br
       %br
+      %h3
+        %center
+          Reviews about #{@mylandlord.name}
       - if current_user
         - if @user_review
           You have already rated this landlord. 
@@ -25,11 +28,9 @@
                
         - else
           = link_to image_tag("review.png"), new_rating_path(:id => @mylandlord.id)
-          %br
+        %br
         %br
       = "Showing #{@range.begin}-#{@range.end} of #{@count}"
-      #reviewtitle
-        Reviews about #{@mylandlord.name}
       %hr
       %br
         #reviewcontainer
