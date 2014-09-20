@@ -1,8 +1,11 @@
 #Rating model
 class Rating < ActiveRecord::Base
-  after_save     :on_save
+  after_save     :on_save, :unless => :skip_save_callback
   before_destroy :on_destroy
-  around_update :on_update
+
+  attr_accessor :skip_save_callback
+
+  skip_callback :save, :after,
 
   #Gets the rating categories
   def self.categories
@@ -23,31 +26,44 @@ class Rating < ActiveRecord::Base
     User.find_by_id(user_id)
   end
 
+  def update_info(params)
+    logger.info '-----------STUFF!-----------'
+    logger.info "Params: #{params.inspect}"
+    newRating = Rating.new
+    Rating.categories.each do |cat|
+      newRating[cat] = params[cat]
+    end
+    landlord = self.landlord
+    landlord.update_rating(self, newRating) if landlord
+  end
+
 private
   def on_save
-    logger.info "Saving rating!!!"
+    logger.info '------AFTER SAVE--------'
     landlord = self.landlord
     landlord.add_rating(self) if landlord
   end
 
   def on_destroy
-    logger.info "Destroying rating!!!"
+    logger.info '------BEFORE DESTROY--------'
     landlord = self.landlord
     landlord.remove_rating(self) if landlord
   end
 
-  def on_update
-    logger.info "Updating rating!!!"
-    landlord = self.landlord
-    landlord.remove_rating(self) if landlord
-
-    old = Rating.new
-    Rating.categories.each { |cat| old[cat] = self[cat] }
-
-    yield
-
-    #landlord.add_rating(self) if landlord
-
-    #landlord.update_rating(old, self) if landlord
-  end
+#  def on_update
+#    logger.info '------AROUND UPDATE--------'
+#    landlord = self.landlord
+#    landlord.remove_rating(self) if landlord
+#
+#    old = Rating.new
+#    Rating.categories.each { |cat| old[cat] = self[cat] }
+#
+#    logger.info "Old: #{self.inspect}"
+#    yield
+#    logger.info "New: #{self.inspect}"
+#
+#    #landlord.add_rating(self) if landlord
+#
+#    #landlord.update_rating(old, self) if landlord
+#  end
 end

@@ -61,7 +61,7 @@
 }
 
 .greyback{
-	background: #b5e4d8;
+	background: #b0e0e0;
 }
 
 .greenback{
@@ -99,7 +99,7 @@ td{
 }
 
 #reviewnum{
-  border: 0px;
+	border: 0px;
 	display:inline;
 }
 
@@ -108,7 +108,7 @@ td{
 }
 
 #reviewsum{
-  border: 0px;
+	border: 0px;
 	padding-left: 35px;
 	background:inherit;
 	font-size:18px;
@@ -116,6 +116,9 @@ td{
 	width:525px;
 	word-break: break-all;
 	word-wrap: break-word;
+}
+#reviewdelete{
+	border: 0px;
 }
 
 table{

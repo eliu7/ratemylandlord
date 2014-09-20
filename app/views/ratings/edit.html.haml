@@ -3,7 +3,7 @@
     = form_for @rating, :method => :put do
       %h1= "Edit review for #{@landlord.name}"
       %hr
-      %table{:class => 'cate'}
+      %table{:class => 'rate'}
         - Rating.categories.each do |cat|
           %tr
             %td

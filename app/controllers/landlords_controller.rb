@@ -55,19 +55,23 @@ class LandlordsController < ApplicationController
     pagesize = 10
     landlord_id = params[:id]
     @page = (params[:page] || '1').to_i
-    @mylandlord = Landlord.find(landlord_id)
-    @reviews = @mylandlord.ratings(@page)
-    @avg_reviews=@mylandlord.average_ratings
-    @count = @mylandlord.rating_count
-    @page_count = (@count-1)/pagesize+1
-    @user_id = current_user.id if current_user
-    @user_review = current_user && Rating.where(:landlord_id => landlord_id, :user_id => @user_id).first
-    @range = [((@page-1)*pagesize+1),@count].min..[@page*pagesize, @count].min
+    @mylandlord = Landlord.find_by_id(landlord_id)
+    if @mylandlord
+      @reviews = @mylandlord.ratings(@page)
+      @avg_reviews=@mylandlord.average_ratings
+      @count = @mylandlord.rating_count
+      @page_count = (@count-1)/pagesize+1
+      @user_id = current_user.id if current_user
+      @user_review = current_user && Rating.where(:landlord_id => landlord_id, :user_id => @user_id).first
+      @range = [((@page-1)*pagesize+1),@count].min..[@page*pagesize, @count].min
+    else
+      redirect_to landlords_path
+    end
   end
 
   def destroy
-    landlord = Landlord.find(params[:id])
-    landlord.destroy
+    landlord = Landlord.find_by_id(params[:id])
+    landlord.destroy if landlord
     redirect_to landlords_path
   end
 end

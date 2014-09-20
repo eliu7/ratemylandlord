@@ -14,7 +14,7 @@ form{
   text-align:right;
 }
 .name{
-  float:left;
+  /*float:left;*/
 }
 h3{
   margin-top:30px;

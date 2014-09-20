@@ -31,10 +31,14 @@ class RatingsController < ApplicationController
     redirect_to landlord_path(:id => id)
   end
   def destroy
-    rating = Rating.find(params[:id])
-    lid = rating.landlord_id
-    rating.destroy
-    redirect_to landlord_path(:page => 1, :id => lid)
+    rating = Rating.find_by_id(params[:id])
+    if rating
+      lid = rating.landlord_id
+      rating.destroy
+      redirect_to landlord_path(:page => 1, :id => lid)
+    else
+      redirect_to landlords_path
+    end
   end
 
   def edit
@@ -46,8 +50,11 @@ class RatingsController < ApplicationController
 
   def update
     @rating = Rating.find(params[:id])
+    @rating.skip_save_callback = true
     logger.info "Rating params: #{params[:rating]}"
+    @rating.update_info(params[:rating])
     @rating.update_attributes!(params[:rating])
+    @rating.skip_save_callback = false
     redirect_to landlord_path(:id => @rating.landlord_id)
   end
 end

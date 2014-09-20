@@ -7,9 +7,11 @@ class AdminController < ApplicationController
   end
   def revoke
     if require_admin
-      user = User.find(params[:id])
-      user.admin = false
-      user.save
+      user = User.find_by_id(params[:id])
+      if user
+        user.admin = false
+        user.save
+      end
       redirect_to(admin_path)
     end
   end

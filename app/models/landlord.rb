@@ -25,6 +25,7 @@ class Landlord < ActiveRecord::Base
   end
 
   def add_rating(rating)
+    logger.info '--------LANDLORD ADD RATING----------'
     self.average_rating = (self.average_rating*self.rating_count+rating.average)/
                           (self.rating_count+1)
     self.rating_count+=1
@@ -32,14 +33,20 @@ class Landlord < ActiveRecord::Base
   end
 
   def remove_rating(rating)
+    logger.info '--------LANDLORD REMOVE RATING----------'
     self.average_rating = (self.average_rating*self.rating_count-rating.average)
     self.rating_count-=1
     self.average_rating = (self.rating_count == 0) ? 0 :
                           self.average_rating/self.rating_count
-    self.save
+    if (self.rating_count > 0)
+      self.save
+    else
+      self.destroy
+    end
   end
 
   def update_rating(old, new)
+    logger.info '--------LANDLORD UPDATE RATING----------'
     self.average_rating = (self.average_rating*self.rating_count-old.average+new.average)/self.rating_count
     self.save
   end
@@ -77,6 +84,7 @@ class Landlord < ActiveRecord::Base
 private
   def remove_ratings
     #Calling delete instead of destroy to prevent the callback
+    logger.info '--------------LANDLORD DESTROY---------------'
     self.ratings.delete_all
   end
 end
