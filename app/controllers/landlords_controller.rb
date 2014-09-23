@@ -9,8 +9,8 @@ class LandlordsController < ApplicationController
     if (@sort && @sort != 'Relevence') || (@sort.nil? && @search.nil?)
       @sort||='Name A-Z'
       sorts = {'Name A-Z' => ['name ASC'], 'Name Z-A' => ['name DESC'],
-               'Best Rating' => ['average_rating DESC', 'name ASC'],
-               'Worst Rating' => ['average_rating ASC', 'name DESC']}
+               'Best Rating' => ['average_rating DESC', 'rating_count DESC', 'name ASC'],
+               'Worst Rating' => ['average_rating ASC', 'rating_count ASC', 'name DESC']}
       @landlords = Landlord.order(*sorts[@sort])
     end
     if @search
