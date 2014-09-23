@@ -9,24 +9,35 @@ class RatingsController < ApplicationController
   def create
     id = params[:id]
     unless id
-      landlord = Landlord.new
-      landlord.name = params[:landlord][:name]
-      landlord.rating_count = 0
-      landlord.average_rating = 0
-      landlord.save
+      name = params[:landlord][:name]
+      landlord = Landlord.where(:name => name).first_or_initialize do |ll|
+        logger.info '-------------------NEW LANDLORD------------------'
+        ll.name = name
+        ll.rating_count = 0
+        ll.average_rating = 0
+        ll.save
+      end
       id = landlord.id
     end
 
     info = params[:rating]
 
-    rating = Rating.new
-    rating.user_id = current_user.id
-    rating.landlord_id = id
-    Rating.categories.each do |cat|
-      rating[cat] = info[cat].to_i
+    rating = Rating.where(:landlord_id => id, :user_id => current_user.id).first
+    if rating
+      rating.skip_save_callback = true
+      rating.update_info(info)
+      rating.update_attributes!(info)
+      rating.skip_save_callback = false
+    else
+      rating = Rating.new unless rating
+      rating.user_id = current_user.id
+      rating.landlord_id = id
+      Rating.categories.each do |cat|
+        rating[cat] = info[cat].to_i
+      end
+      rating.comment = info[:comment]
+      rating.save
     end
-    rating.comment = info[:comment]
-    rating.save
 
     redirect_to landlord_path(:id => id)
   end

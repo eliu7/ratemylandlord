@@ -17,6 +17,7 @@
         %tbody
           %tr
             %th= "Name"
+            %th Average
             - Rating.categories.each do |category|
               %th= category.to_s.capitalize
             - if admin?
@@ -26,6 +27,12 @@
             - alter = !alter
             %tr{:class => alter ? "alt" : nil}
               %td= link_to(landlord.name, landlord_path(:id => landlord.id))
+              %td{:class => 'line'}
+                - landlord.average_rating.round.to_i.times do
+                  %img(src='/assets/rating.png')
+                - (5-landlord.average_rating.round.to_i).times do
+                  %img(src='/assets/rating_empty.png' class='opp')
+                = "(#{landlord.rating_count})"
               - landlord.average_ratings.each do |column|
                 %td= column
               - if admin?
