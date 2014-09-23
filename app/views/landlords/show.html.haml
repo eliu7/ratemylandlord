@@ -34,11 +34,10 @@
       %hr
       %br
         #reviewcontainer
-          - x=1
-          - @reviews.each do |review|
+          - @reviews.each_with_index do |review, i|
             %table{:class => "show_ratings"}
               %thead
-                %tr{:class => x.even? ? "greyback" : nil}
+                %tr{:class => i.odd? ? "greyback" : nil}
                   %td#reviewstats
                     =review.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%y")
                     %br
@@ -46,9 +45,9 @@
                     #reviewnum
                       - Rating.categories.each do |cat|
                         = "#{cat.to_s.capitalize}:"
-                        - review[cat].times do |x|
+                        - review[cat].times do
                           %img(src='/assets/rating.png')
-                        - (5 - review[cat]).times do |x|
+                        - (5 - review[cat]).times do
                           %img(src='/assets/rating_empty.png' class='opp')
                         %br
                   %td#reviewsum
@@ -59,7 +58,6 @@
                         rating_path(review.id),
                         :method => :delete,
                         :confirm => "Delete #{current_user && current_user.id == review.user_id ? 'your' : 'this'} review? This cannot be undone."
-                  - x = x+1
       %br
       %br
       #pagenums
