@@ -167,7 +167,7 @@ nav ul li form input[type=submit]{
 }
 #widget-wrap{
 	padding: 50px 0;
-	background: #333333 url(widget-bg.jpg);
+	background: #333333
 }
 #widget{
 	width: 960px;
