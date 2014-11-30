@@ -34,7 +34,7 @@
                   %img(src='/assets/rating_empty.png' class='opp')
                 = "(#{landlord.rating_count})"
               - landlord.average_ratings.each do |column|
-                %td= column
+                %td= column.round(1)
               - if admin?
                 /TODO Make dialog Yes/No instead of Ok/Cancel
                 %td= link_to image_tag("x-icon.png"), landlord_path(landlord.id), :method => :delete, :confirm => "This will delete #{landlord.name} and all ratings associated with this landlord. This cannot be undone."

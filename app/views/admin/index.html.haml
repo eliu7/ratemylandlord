@@ -1,5 +1,8 @@
 %body
   #container
+    %div{:class => 'buttoncenter'}
+      = button_to "Notifications (#{@notification_count})", notifications_path, :method => 'get'
+    %br
     %table
       %tbody
         %th Name

@@ -8,9 +8,9 @@ class LandlordsController < ApplicationController
     @search = nil if @search && @search.empty?
     if (@sort && @sort != 'Relevence') || (@sort.nil? && @search.nil?)
       @sort||='Name A-Z'
-      sorts = {'Name A-Z' => ['name ASC'], 'Name Z-A' => ['name DESC'],
+      sorts = {'Name A-Z' => ['lower(name) ASC'], 'Name Z-A' => ['lower(name) DESC'],
                'Best Rating' => ['average_rating DESC', 'rating_count DESC', 'name ASC'],
-               'Worst Rating' => ['average_rating ASC', 'rating_count ASC', 'name DESC']}
+               'Most Reviews' => ['rating_count DESC', 'name ASC']}
       @landlords = Landlord.order(*sorts[@sort])
     end
     if @search
@@ -32,7 +32,7 @@ class LandlordsController < ApplicationController
 
     @range = [((@page-1)*pagesize+1),@count].min..[@page*pagesize, @count].min
 
-    @sorts = ['Name A-Z', 'Name Z-A', 'Best Rating', 'Worst Rating']
+    @sorts = ['Name A-Z', 'Name Z-A', 'Best Rating', 'Most Reviews']
     @sorts.unshift('Relevence') if @search
   end
 
@@ -73,5 +73,20 @@ class LandlordsController < ApplicationController
     landlord = Landlord.find_by_id(params[:id])
     landlord.destroy if landlord
     redirect_to landlords_path
+  end
+
+  def merge
+    logger.info "Merge params: #{params}"
+    landlord_src = Landlord.find_by_id(params[:id])
+    landlord_dest = Landlord.find_by_name(params[:landlord][:name])
+    unless landlord_src && landlord_dest
+      flash[:error] = 'That landlord does not exist'
+      redirect_to landlord_path(:id => params[:id])
+      return
+    end
+
+    landlord_dest.merge(landlord_src)
+
+    redirect_to landlord_path(:id => landlord_dest.id)
   end
 end

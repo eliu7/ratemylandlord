@@ -1,6 +1,15 @@
 #Landlord model
 class Landlord < ActiveRecord::Base
+  # Remove all ratings for the landlord when it's removed
   after_destroy :remove_ratings
+
+  def self.rating_functions
+    Rating.categories.map do |cat|
+      [cat.to_s, "avg_#{cat.to_s}"]
+    end.map do |(cat, get)|
+      [cat, get, "#{get}="]
+    end
+  end
 
   # Gets all of the ratings for the landlord
   def ratings(page = nil)
@@ -12,33 +21,73 @@ class Landlord < ActiveRecord::Base
 
   # Calculates the average ratings for the landlord
   def average_ratings
-    avgs = Hash.new(0)
-    categories = Rating.categories
-    rs = ratings
-    rs.each do |rate|
-      categories.each { |cat| avgs[cat] += rate.send(cat) }
+    Landlord.rating_functions.map { |(_, get, _)| self.send(get) }
+  end
+
+  def calculate_average_rating
+    ratings = self.average_ratings
+    self.average_rating = ratings.reduce(:+) / ratings.size
+  end
+
+  def calculate_averages
+    functions = Landlord.rating_functions
+
+    rs = self.ratings
+
+    functions.each { |(_,_,set)| self.send(set, 0) }
+    self.rating_count = rs.count
+
+    rs.each do |rating|
+      functions.each do |(cat, get, set)|
+        self.send(set, self.send(get) + rating.send(cat))
+      end
     end
 
-    avgs.each { |k, v| avgs[k] = rs.empty? ? 0 : (v.to_f/rs.length).round(1) }
+    if self.rating_count > 0
+      functions.each do |(_, get, set)|
+        self.send(set, self.send(get)/self.rating_count)
+      end
+    end
+    self.calculate_average_rating
+    self.save
+  end
 
-    categories.map { |cat| avgs[cat] }
+  def merge(landlord)
+    return if self.id == landlord.id
+    unless self.rating_count.zero? && landlord.rating_count.zero?
+      Landlord.rating_functions.each do |(_, get, set)|
+        self.send(set, (self.send(get)*self.rating_count +
+                        landlord.send(get)*landlord.rating_count) /
+                       (self.rating_count + landlord.rating_count))
+      end
+    end
+    self.rating_count+=landlord.rating_count
+    self.calculate_average_rating
+    self.save
+
+    landlord.ratings.update_all(:landlord_id => self.id)
+
+    landlord.destroy
   end
 
   def add_rating(rating)
-    logger.info '--------LANDLORD ADD RATING----------'
-    self.average_rating = (self.average_rating*self.rating_count+rating.average)/
-                          (self.rating_count+1)
+    Landlord.rating_functions.each do |(cat, get, set)|
+      self.send(set, (self.send(get)*self.rating_count+rating.send(cat)) /
+                     (self.rating_count+1))
+    end
     self.rating_count+=1
+    self.calculate_average_rating
     self.save
   end
 
   def remove_rating(rating)
-    logger.info '--------LANDLORD REMOVE RATING----------'
-    self.average_rating = (self.average_rating*self.rating_count-rating.average)
-    self.rating_count-=1
-    self.average_rating = (self.rating_count == 0) ? 0 :
-                          self.average_rating/self.rating_count
-    if (self.rating_count > 0)
+    if (self.rating_count > 1)
+      Landlord.rating_functions.each do |(cat, get, set)|
+        self.send(set, (self.send(get)*self.rating_count-rating.send(cat)) /
+                       (self.rating_count-1))
+      end
+      self.rating_count-=1
+      self.calculate_average_rating
       self.save
     else
       self.destroy
@@ -46,8 +95,11 @@ class Landlord < ActiveRecord::Base
   end
 
   def update_rating(old, new)
-    logger.info '--------LANDLORD UPDATE RATING----------'
-    self.average_rating = (self.average_rating*self.rating_count-old.average+new.average)/self.rating_count
+    Landlord.rating_functions.each do |(cat, get, set)|
+      self.send(set, (self.send(get)*self.rating_count-old.send(cat)+new.send(cat)) /
+                     self.rating_count)
+    end
+    self.calculate_average_rating
     self.save
   end
 

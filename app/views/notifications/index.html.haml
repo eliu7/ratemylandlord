@@ -1,0 +1,50 @@
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %link{:href => "/assets/landlorddetails.css", :rel => "stylesheet"}/
+  %body    
+    #container
+      = "Showing #{@range.begin}-#{@range.end} of #{@count}"
+      %hr
+      %br
+        =form_tag update_notifications_path do
+          #reviewcontainer
+            - @reviews.each_with_index do |review, i|
+              %table{:class => "show_ratings"}
+                %thead
+                  %tr{:class => i.odd? ? "greyback" : nil}
+                    %td#reviewdelete
+                      =link_to 'Link', landlord_path(review.landlord_id)
+                      %br
+                      %br
+                      =radio_button "mode_#{review.id}", 'action', 'delete'
+                      =label 'Delete', 'Delete'
+                      %br
+                      =radio_button "mode_#{review.id}", 'action', 'keep'
+                      =label 'Keep', 'Keep'
+                      %br
+                      =radio_button "mode_#{review.id}", 'action', 'ignore', :checked => true
+                      =label 'Ignore', 'Ignore'
+                    %td#reviewstats
+                      =time_format(review.created_at)
+                      %br
+                      %br
+                      #reviewnum
+                        - Rating.categories.each do |cat|
+                          = "#{cat.to_s.capitalize}:"
+                          - review[cat].times do
+                            %img(src='/assets/rating.png')
+                          - (5 - review[cat]).times do
+                            %img(src='/assets/rating_empty.png' class='opp')
+                          %br
+                    %td#reviewsum
+                      #{review.comment} 
+          %br
+          =submit_tag 'Update'
+      %br
+      %br
+      #pagenums
+        =pagify(@page, @page_count, :notifications_path, {})
+      %br
+  #widget-wrap.group
+  %footer.group

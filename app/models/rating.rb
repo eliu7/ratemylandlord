@@ -1,11 +1,11 @@
 #Rating model
 class Rating < ActiveRecord::Base
   after_save     :on_save, :unless => :skip_save_callback
+  after_save     :add_notification
   before_destroy :on_destroy
+  before_destroy :delete_notification
 
   attr_accessor :skip_save_callback
-
-  skip_callback :save, :after,
 
   #Gets the rating categories
   def self.categories
@@ -37,7 +37,6 @@ class Rating < ActiveRecord::Base
     landlord.update_rating(self, newRating) if landlord
   end
 
-private
   def on_save
     logger.info '------AFTER SAVE--------'
     landlord = self.landlord
@@ -48,6 +47,15 @@ private
     logger.info '------BEFORE DESTROY--------'
     landlord = self.landlord
     landlord.remove_rating(self) if landlord
+  end
+
+  def add_notification
+    self.delete_notification
+    Notification.create(:rating_id => self.id)
+  end
+
+  def delete_notification
+    Notification.where(:rating_id => self.id).destroy_all
   end
 
 #  def on_update

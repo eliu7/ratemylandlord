@@ -3,6 +3,7 @@ class AdminController < ApplicationController
   def index
     if require_admin
       @admins = User.where(:admin => true)
+      @notification_count = Notification.count
     end
   end
   def revoke

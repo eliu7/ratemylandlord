@@ -2,7 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception
 
-  helper_method :current_user, :admin?
+  helper_method :current_user, :admin?, :time_format
 
   # Returns the current user
   def current_user
@@ -34,5 +34,9 @@ class ApplicationController < ActionController::Base
       return false
     end
     return true
+  end
+
+  def time_format(time)
+    time.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%y")
   end
 end

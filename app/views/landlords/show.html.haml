@@ -13,9 +13,14 @@
         - Rating.categories.each_with_index do |cat, i|
           #listelem{:class => controller.get_color(@avg_reviews[i])}
             #listelemnum
-              = @avg_reviews[i]
+              = @avg_reviews[i].round(1)
             = cat.to_s.capitalize
       %br
+      - if admin?
+        = form_tag merge_landlord_path(:id => params[:id]) do
+          = label :landlord, 'Landlord:', :required => true
+          = text_field :landlord, 'name', :required => 'required'
+          = submit_tag 'Merge', :confirm => "This will delete #{@mylandlord.name} and move all ratings to the selected landlord. This cannot be undone"
       %br
       %h3
         %center
@@ -39,7 +44,7 @@
               %thead
                 %tr{:class => i.odd? ? "greyback" : nil}
                   %td#reviewstats
-                    =review.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%y")
+                    =time_format(review.created_at)
                     %br
                     %br
                     #reviewnum

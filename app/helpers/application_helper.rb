@@ -1,11 +1,11 @@
 module ApplicationHelper
   def pagify(page, count, path, parameters)
     str = ''
-    logger.info ":Page => #{page} :Count => #{count} :Path => #{path} :Parameters => #{parameters}"
     if count > 1
       str+=link_to('<<', self.send(path, parameters.merge(:page => 1)))
-      5.times do |i|
-        current = page-2+i
+      num = 5
+      (num*2+1).times do |i|
+        current = page-num+i
         next unless current.between?(1, count)
         pagestr = " #{current} "
         if current == page
@@ -19,7 +19,6 @@ module ApplicationHelper
       end
       str+=link_to('>>', self.send(path, parameters.merge(:page => count)))
     end
-    logger.info "Str is #{str}"
     return str.html_safe
   end
 end
