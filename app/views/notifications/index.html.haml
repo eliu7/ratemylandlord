@@ -7,7 +7,7 @@
       = "Showing #{@range.begin}-#{@range.end} of #{@count}"
       %hr
       %br
-        =form_tag update_notifications_path do
+        =form_tag update_notifications_path(:page => (params[:page] || 1)) do
           #reviewcontainer
             - @reviews.each_with_index do |review, i|
               %table{:class => "show_ratings"}

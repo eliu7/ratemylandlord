@@ -15,9 +15,6 @@ class NotificationsController < ApplicationController
   end
 
   def update
-    logger.info "Parameters: #{params}"
-    redirect_to notifications_path
-
     delete_ratings = []
     delete_notifications = []
     params.each do |key, value|
@@ -39,5 +36,6 @@ class NotificationsController < ApplicationController
       Rating.where(:id => delete_ratings).destroy_all
       Rating.set_callback(:destroy, :before, :delete_notification)
     end
+    redirect_to notifications_path(:page => (params[:page] || 1))
   end
 end
