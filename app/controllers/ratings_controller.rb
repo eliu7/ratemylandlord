@@ -12,9 +12,7 @@ class RatingsController < ApplicationController
       name = params[:landlord][:name]
       landlord = Landlord.where(:name => name).first_or_initialize do |ll|
         logger.info '-------------------NEW LANDLORD------------------'
-        ll.name = name
-        ll.rating_count = 0
-        ll.average_rating = 0
+        ll.init(name)
         ll.save
       end
       id = landlord.id

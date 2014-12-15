@@ -52,6 +52,14 @@ class Landlord < ActiveRecord::Base
     self.save
   end
 
+  def init(name)
+    logger.info "------------------INITIALIZING LANDLORD------------------"
+    self.name = name
+    self.rating_count = 0
+    self.average_rating = 0
+    Landlord.rating_functions.map { |_, _, set| self.send(set, 0) }
+  end
+
   def merge(landlord)
     return if self.id == landlord.id
     unless self.rating_count.zero? && landlord.rating_count.zero?
