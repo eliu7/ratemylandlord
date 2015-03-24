@@ -161,10 +161,18 @@ nav ul li form input[type=submit]{
 	width: 16px;
 }
 #container{
-  min-height:100%;
+    min-height:100%;
+	min-width: 100%;
+	margin: 0 auto;
+}
+
+#content{
+	padding:10px;
+	padding-bottom: 80px; 
 	width: 960px;
 	margin: 0 auto;
 }
+
 #widget-wrap{
 	padding: 50px 0;
 	background: #333333
@@ -173,9 +181,10 @@ nav ul li form input[type=submit]{
 	width: 960px;
 	margin: 0 auto;
 }
-footer{
-	width: 960px;
-	margin: 0 auto;
-	padding: 30px 0 60px 0;
-	position: relative;
+
+footer, .push{
+	background: #333333;
+	width: 100%;
+	/*padding: 30px 0 60px 0;*/
+	height: 123px;
 }

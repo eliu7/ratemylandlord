@@ -1,3 +1,12 @@
+#noreview-image{
+  background-image: url(noreview.png); 
+  background-repeat: no-repeat; 
+  display: block;
+  background-position: top; 
+  padding-top:68px;
+  height:280px;
+  position:relative;
+}
 #header-image{
 	background-image: url(header.png); 
 	background-repeat: no-repeat; 

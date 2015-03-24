@@ -1,4 +1,4 @@
-#container
+#content
   %body
     = form_tag ratings_path(:id => params[:id]) do |f|
       - if params[:id].nil?
@@ -40,5 +40,4 @@
         = submit_tag (params[:id].nil? ? 'Create Landlord' : 'Submit Rating')
         %br
         %br
-  #widget-wrap.group
-  %footer.group
+

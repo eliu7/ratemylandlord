@@ -1,9 +1,7 @@
-#container
+#content  
   #about-wrap  
     =@contact_text.html_safe
     -if admin?
       = link_to 'Edit', edit_contact_path, :method => :get
       %br
       %br
-#widget-wrap.group
-%footer.group

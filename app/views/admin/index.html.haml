@@ -1,5 +1,5 @@
 %body
-  #container
+  #content
     %div{:class => 'buttoncenter'}
       = button_to "Notifications (#{@notification_count})", notifications_path, :method => 'get'
     %br
@@ -32,5 +32,3 @@
     %br
     %br
     /%td= link_to image_tag("check-icon.png"), make_admin_path(:id => user.id)
-  #widget-wrap.group
-  %footer.group
