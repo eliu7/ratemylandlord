@@ -3,66 +3,65 @@
     %meta{:charset => "utf-8"}/
     %link{:href => "/assets/landlorddetails.css", :rel => "stylesheet"}/
   %body    
-    #container
-      #content
-        #name
-          =@mylandlord.name
-          - if admin?
-            = link_to image_tag("x-icon.png"), landlord_path(:id => @mylandlord.id), :method => :delete, :confirm => "This will delete #{@mylandlord.name} and all ratings associated with this landlord. This cannot be undone."
-        %br
-        #reviewslist
-          - Rating.categories.each_with_index do |cat, i|
-            #listelem{:class => controller.get_color(@avg_reviews[i])}
-              #listelemnum
-                = @avg_reviews[i].round(1)
-              = cat.to_s.capitalize
-        %br
+    #content
+      #name
+        =@mylandlord.name
         - if admin?
-          = form_tag merge_landlord_path(:id => params[:id]) do
-            = label :landlord, 'Landlord:', :required => true
-            = text_field :landlord, 'name', :required => 'required'
-            = submit_tag 'Merge', :confirm => "This will delete #{@mylandlord.name} and move all ratings to the selected landlord. This cannot be undone"
-        %br
-        %h3
-          %center
-            Reviews about #{@mylandlord.name}
-        - if current_user
-          - if @user_review
-            You have already rated this landlord. 
-            =link_to '[edit]', edit_rating_path(:id => @user_review.id)
-            =link_to '[delete]', rating_path(@user_review.id), :method => :delete, :confirm => 'Delete your review? This cannot be undone.'
-          %br
-          %br
-        = "Showing #{@range.begin}-#{@range.end} of #{@count}"
-        %hr
-        %br
-          #reviewcontainer
-            - @reviews.each_with_index do |review, i|
-              %table{:class => "show_ratings"}
-                %thead
-                  %tr{:class => i.odd? ? "greyback" : nil}
-                    %td#reviewstats
-                      =time_format(review.created_at)
-                      %br
-                      %br
-                      #reviewnum
-                        - Rating.categories.each do |cat|
-                          = "#{cat.to_s.capitalize}:"
-                          - review[cat].times do
-                            %img(src='/assets/rating.png')
-                          - (5 - review[cat]).times do
-                            %img(src='/assets/rating_empty.png' class='opp')
-                          %br
-                    %td#reviewsum
-                      #{review.comment} 
-                    %td#reviewdelete
-                      - if(admin? || (current_user && current_user.id == review.user_id))
-                        =link_to image_tag("x-icon.png"),
-                          rating_path(review.id),
-                          :method => :delete,
-                          :confirm => "Delete #{current_user && current_user.id == review.user_id ? 'your' : 'this'} review? This cannot be undone."
+          = link_to image_tag("x-icon.png"), landlord_path(:id => @mylandlord.id), :method => :delete, :confirm => "This will delete #{@mylandlord.name} and all ratings associated with this landlord. This cannot be undone."
+      %br
+      #reviewslist
+        - Rating.categories.each_with_index do |cat, i|
+          #listelem{:class => controller.get_color(@avg_reviews[i])}
+            #listelemnum
+              = @avg_reviews[i].round(1)
+            = cat.to_s.capitalize
+      %br
+      - if admin?
+        = form_tag merge_landlord_path(:id => params[:id]) do
+          = label :landlord, 'Landlord:', :required => true
+          = text_field :landlord, 'name', :required => 'required'
+          = submit_tag 'Merge', :confirm => "This will delete #{@mylandlord.name} and move all ratings to the selected landlord. This cannot be undone"
+      %br
+      %h3
+        %center
+          Reviews about #{@mylandlord.name}
+      - if current_user
+        - if @user_review
+          You have already rated this landlord. 
+          =link_to '[edit]', edit_rating_path(:id => @user_review.id)
+          =link_to '[delete]', rating_path(@user_review.id), :method => :delete, :confirm => 'Delete your review? This cannot be undone.'
         %br
         %br
-        #pagenums
-          =pagify(@page, @page_count, :landlord_path, :id => @mylandlord.id)
-        %br
+      = "Showing #{@range.begin}-#{@range.end} of #{@count}"
+      %hr
+      %br
+        #reviewcontainer
+          - @reviews.each_with_index do |review, i|
+            %table{:class => "show_ratings"}
+              %thead
+                %tr{:class => i.odd? ? "greyback" : nil}
+                  %td#reviewstats
+                    =time_format(review.created_at)
+                    %br
+                    %br
+                    #reviewnum
+                      - Rating.categories.each do |cat|
+                        = "#{cat.to_s.capitalize}:"
+                        - review[cat].times do
+                          %img(src='/assets/rating.png')
+                        - (5 - review[cat]).times do
+                          %img(src='/assets/rating_empty.png' class='opp')
+                        %br
+                  %td#reviewsum
+                    #{review.comment} 
+                  %td#reviewdelete
+                    - if(admin? || (current_user && current_user.id == review.user_id))
+                      =link_to image_tag("x-icon.png"),
+                        rating_path(review.id),
+                        :method => :delete,
+                        :confirm => "Delete #{current_user && current_user.id == review.user_id ? 'your' : 'this'} review? This cannot be undone."
+      %br
+      %br
+      #pagenums
+        =pagify(@page, @page_count, :landlord_path, :id => @mylandlord.id)
+      %br

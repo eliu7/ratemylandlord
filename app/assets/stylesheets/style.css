@@ -13,18 +13,18 @@ menu, nav{
 footer, header, menu, nav {
 	display: block;
 }
-body {
-	line-height: 1;
-  min-width:1000px;
-  height: 100%;
-}
 ol, ul {
 	list-style: none;
 }
 a, a:link a:visited{
   text-decoration:none;
 }
+html, body{
+  height:100%;
+}
 body{
+	line-height: 1;
+    height: 100%;
 	background: #fff;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 13px;
@@ -163,7 +163,7 @@ nav ul li form input[type=submit]{
 #container{
     min-height:100%;
 	min-width: 100%;
-	margin: 0 auto;
+	margin: 0 auto -123px; /* the bottom margin is the negative value of the footer's height */
 }
 
 #content{
@@ -183,11 +183,11 @@ nav ul li form input[type=submit]{
 }
 
 footer, .push{
+	height: 123px;
+}
+
+footer {
 	background: #333333;
 	width: 100%;
-	/*padding: 30px 0 60px 0;*/
-	height: 123px;
-	left: 0;
-	bottom: 0;
-	position: absolute;
+	position: relative;
 }

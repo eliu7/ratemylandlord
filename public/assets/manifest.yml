@@ -25,7 +25,7 @@ x-icon.png: x-icon-2a6f55bd7e0410b7b411be75511dfe11.png
 x-icon/index.png: x-icon-2a6f55bd7e0410b7b411be75511dfe11.png
 application.js: application-859e36a97436b7df1b35a4fe1547bc5e.js
 application/index.js: application-859e36a97436b7df1b35a4fe1547bc5e.js
-application.css: application-346b0cb46ed3223dfa9b67e53d646f08.css
-application/index.css: application-346b0cb46ed3223dfa9b67e53d646f08.css
+application.css: application-f71f28d8f687f2ba89819a610ce8d222.css
+application/index.css: application-f71f28d8f687f2ba89819a610ce8d222.css
 jquery.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map
 jquery/index.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map
