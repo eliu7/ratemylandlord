@@ -1,9 +1,11 @@
 %body    
   #content
     #landlords   
-      %br
-      %br
-      %br
+      - if current_user
+        =link_to image_tag("landlord.png", :align => "right"), new_rating_path
+        %br
+        %br
+        %br
       %form{:action => landlords_path, :method => 'get'}
         -if @search
           %input{:type => 'hidden', :name => 'search', :value => @search}
