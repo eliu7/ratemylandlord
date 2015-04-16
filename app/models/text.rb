@@ -40,8 +40,8 @@ class Text < ActiveRecord::Base
         "  for students by allowing them to understand\nwhat their experience will be like.\n" +
         "</p>\n" +
         "<p>\n" +
-        "  Your Binghamton email is required to write reviews. " +
-        "  Login is done through Google so we never see your password. \n" +
+        "  Your Binghamton email is all you need to write reviews. " +
+        "  Login is done through Google with your @binghamton.edu email. \n" +
         "  All reviews are completely anonymous - we will never disclose your name " +
         "  or any other information to anyone.\n" +
         "</p>\n" +
