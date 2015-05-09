@@ -32,11 +32,12 @@ group :assets do
   gem 'sass-rails', '~> 3.2.6'
   gem 'coffee-rails', '~> 3.2.2'
   gem 'uglifier'
+  gem 'jquery-ui-sass-rails', '~> 4.0.3.0'
+  gem 'less-rails-bootstrap'
 end
 
-gem 'less-rails-bootstrap'
+
 gem 'jquery-rails'
-gem 'jquery-ui-sass-rails', '~> 4.0.3.0'
 gem 'haml'
 # gem 'mail_form', ">= 1.3.0"
 # Use unicorn as the web server
