@@ -30,6 +30,9 @@
           You have already rated this landlord. 
           =link_to '[edit]', edit_rating_path(:id => @user_review.id)
           =link_to '[delete]', rating_path(@user_review.id), :method => :delete, :confirm => 'Delete your review? This cannot be undone.'
+              
+        - else
+          = link_to image_tag("review.png"), new_rating_path(:id => @mylandlord.id) 
         %br
         %br
       = "Showing #{@range.begin}-#{@range.end} of #{@count}"
@@ -42,16 +45,34 @@
                 %tr{:class => i.odd? ? "greyback" : nil}
                   %td#reviewstats
                     =time_format(review.created_at)
-                    %br
-                    %br
-                    #reviewnum
-                      - Rating.categories.each do |cat|
-                        = "#{cat.to_s.capitalize}:"
-                        - review[cat].times do
-                          %img(src='/assets/rating.png')
-                        - (5 - review[cat]).times do
-                          %img(src='/assets/rating_empty.png' class='opp')
+                    - if review.oldreview
+                      %p
+                        %a.text-right.boot-popup{:title => "RatemyLandlord has moved to a new review style"} This is an old review
+                      #reviewnum
+                        - Rating.questions.each do |cat|
+                          - if review[cat] < 0
+                            - next
+                          = "#{cat.to_s.capitalize}:"[0..-4]
+                          - review[cat].times do
+                            %img(src='/assets/rating.png')
+                          - (5 - review[cat]).times do
+                            %img(src='/assets/rating_empty.png' class='opp')
+                          %br
+                    - else
+                      #reviewnum
                         %br
+                        - Rating.questions.each_with_index do |cat, i|
+                          - dyn_title = { 0 => "general", 2 => "helpfulness", 4 => "professionalism", 6 => "credibility"}[i]
+                          - if (i % 2) == 0
+                            %h5.text-left= "#{dyn_title.capitalize}"
+                          - popup = Rating.quesmap[cat]
+                          %span.open-event{ :title => "#{popup}"}
+                            = "Question #{i+1}"
+                            - review[cat].times do
+                              %img(src='/assets/rating.png')
+                            - (5 - review[cat]).times do
+                              %img(src='/assets/rating_empty.png' class='opp')
+                            %br
                   %td#reviewsum
                     #{review.comment} 
                   %td#reviewdelete
@@ -65,3 +86,10 @@
       #pagenums
         =pagify(@page, @page_count, :landlord_path, :id => @mylandlord.id)
       %br
+:javascript
+  $.widget.bridge('uitooltip', $.ui.tooltip);
+  $( ".open-event" ).uitooltip({
+        track: true
+  });
+  $( ".boot-popup" ).tooltip({
+  });

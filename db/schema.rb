@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141030232941) do
+ActiveRecord::Schema.define(:version => 20150508041528) do
 
   create_table "landlords", :force => true do |t|
     t.string   "name"
     t.integer  "rating_count"
     t.decimal  "average_rating"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.decimal  "avg_general"
     t.decimal  "avg_helpfulness"
-    t.decimal  "avg_friendliness"
-    t.decimal  "avg_availability"
+    t.decimal  "avg_professionalism"
+    t.decimal  "avg_credibility"
   end
 
   create_table "notifications", :force => true do |t|
@@ -34,13 +34,18 @@ ActiveRecord::Schema.define(:version => 20141030232941) do
   create_table "ratings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "landlord_id"
-    t.integer  "general"
-    t.integer  "helpfulness"
-    t.integer  "friendliness"
-    t.integer  "availability"
+    t.integer  "general_1"
+    t.integer  "helpfulness_1"
+    t.integer  "professionalism_1"
+    t.integer  "credibility_1"
     t.string   "comment"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "general_2"
+    t.integer  "helpfulness_2"
+    t.integer  "professionalism_2"
+    t.integer  "credibility_2"
+    t.boolean  "oldreview"
   end
 
   create_table "texts", :force => true do |t|

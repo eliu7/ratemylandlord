@@ -29,6 +29,7 @@ class Landlord < ActiveRecord::Base
     self.average_rating = ratings.reduce(:+) / ratings.size
   end
 
+  # modified to calculate avg of 2 questions per category
   def calculate_averages
     functions = Landlord.rating_functions
 
@@ -39,7 +40,12 @@ class Landlord < ActiveRecord::Base
 
     rs.each do |rating|
       functions.each do |(cat, get, set)|
-        self.send(set, self.send(get) + rating.send(cat))
+        if rating.send("oldreview")
+          category_avg_rating = rating.send("#{cat.to_s}_1")
+        else
+          category_avg_rating = (rating.send("#{cat.to_s}_1") + rating.send("#{cat.to_s}_2"))/2.0 #changed
+        end
+        self.send(set, self.send(get) + category_avg_rating) #changed
       end
     end
 
@@ -80,7 +86,8 @@ class Landlord < ActiveRecord::Base
 
   def add_rating(rating)
     Landlord.rating_functions.each do |(cat, get, set)|
-      self.send(set, (self.send(get)*self.rating_count+rating.send(cat)) /
+      category_avg_rating = (rating.send("#{cat.to_s}_1") + rating.send("#{cat.to_s}_2"))/2.0 #changed
+      self.send(set, (self.send(get)*self.rating_count+category_avg_rating) /
                      (self.rating_count+1))
     end
     self.rating_count+=1
@@ -91,7 +98,8 @@ class Landlord < ActiveRecord::Base
   def remove_rating(rating)
     if (self.rating_count > 1)
       Landlord.rating_functions.each do |(cat, get, set)|
-        self.send(set, (self.send(get)*self.rating_count-rating.send(cat)) /
+        category_avg_rating = (rating.send("#{cat.to_s}_1") + rating.send("#{cat.to_s}_2"))/2.0 #changed
+        self.send(set, (self.send(get)*self.rating_count-category_avg_rating) /
                        (self.rating_count-1))
       end
       self.rating_count-=1
@@ -104,7 +112,13 @@ class Landlord < ActiveRecord::Base
 
   def update_rating(old, new)
     Landlord.rating_functions.each do |(cat, get, set)|
-      self.send(set, (self.send(get)*self.rating_count-old.send(cat)+new.send(cat)) /
+      if old.oldreview
+        old_category_avg_rating = old.send("#{cat.to_s}_1")
+      else
+        old_category_avg_rating = (old.send("#{cat.to_s}_1") + old.send("#{cat.to_s}_2"))/2.0 #changed
+      end
+      new_category_avg_rating = (new.send("#{cat.to_s}_1") + new.send("#{cat.to_s}_2"))/2.0 #changed
+      self.send(set, (self.send(get)*self.rating_count-old_category_avg_rating+new_category_avg_rating) /
                      self.rating_count)
     end
     self.calculate_average_rating

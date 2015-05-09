@@ -1,16 +1,18 @@
 %body    
   #content
     #landlords   
-      %br
-      %br
-      %br
+      - if current_user
+        =link_to image_tag("landlord.png", :align => "right"), new_rating_path
+        %br
+        %br
+        %br
       %form{:action => landlords_path, :method => 'get'}
         -if @search
           %input{:type => 'hidden', :name => 'search', :value => @search}
         =select_tag :sort, options_for_select(@sorts, @sort)
         =submit_tag 'Refresh', :name => nil
       = "Showing #{@range.begin}-#{@range.end} of #{@count}"
-      %table
+      %table.table-hover
         %tbody
           %tr
             %th= "Name"
@@ -30,8 +32,11 @@
                 - (5-landlord.average_rating.round.to_i).times do
                   %img(src='/assets/rating_empty.png' class='opp')
                 = "(#{landlord.rating_count})"
-              - landlord.average_ratings.each do |column|
-                %td= column.round(1)
+              - landlord.average_ratings.each_with_index do |column, i|
+                - dyn_title = { 0 => "general", 1 => "helpfulness", 2 => "professionalism", 3 => "credibility"}[i]
+                - str1 = "Q#{i*2+1}." + Rating.quesmap["#{dyn_title.to_s}_1".to_sym]
+                - str2 = "Q#{i*2+2}." + Rating.quesmap["#{dyn_title.to_s}_2".to_sym]
+                %td.open-event{:title => "#{str1} #{str2}"}= column.round(1)
               - if admin?
                 /TODO Make dialog Yes/No instead of Ok/Cancel
                 %td= link_to image_tag("x-icon.png"), landlord_path(landlord.id), :method => :delete, :confirm => "This will delete #{landlord.name} and all ratings associated with this landlord. This cannot be undone."
@@ -40,3 +45,11 @@
   #pagenums
     =pagify(@page, @page_count, :landlords_path, :search => @search, :sort => params[:sort])
   %br
+
+:javascript
+  $.widget.bridge('uitooltip', $.ui.tooltip);
+  $(function() {
+    $( ".open-event" ).uitooltip({
+      track: true
+    });
+  });

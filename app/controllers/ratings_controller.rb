@@ -30,7 +30,8 @@ class RatingsController < ApplicationController
       rating = Rating.new unless rating
       rating.user_id = current_user.id
       rating.landlord_id = id
-      Rating.categories.each do |cat|
+      rating.oldreview = false # all new reviews set this false
+      Rating.questions.each do |cat|
         rating[cat] = info[cat].to_i
       end
       rating.comment = info[:comment]
@@ -39,6 +40,7 @@ class RatingsController < ApplicationController
 
     redirect_to landlord_path(:id => id)
   end
+
   def destroy
     rating = Rating.find_by_id(params[:id])
     if rating

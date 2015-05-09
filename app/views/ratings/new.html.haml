@@ -1,39 +1,53 @@
 #content
   %body
-    = form_tag ratings_path(:id => params[:id]) do |f|
-      - if params[:id].nil?
-        %center
-          %h1 Create new landlord
-          %hr
-        %div{:class => "name"}
+    .form-group
+      = form_tag ratings_path(:id => params[:id]) do |f|
+        - if params[:id].nil?
           %center
-            = label :landlord, 'Name:', :required => true
-            = text_field :landlord, 'name', :required => 'required'
-        %br
-        %center
-          %h3 Rate this landlord
-        %br
-      - else
-        %h1= "Rate #{@landlord.name}"
-        %hr
-      %table{:class => 'rate'}
+            %h1 Create new landlord
+            %hr
+          %div{:class => "name"}
+            %center
+              = label :landlord, 'Name:', :required => true
+              = text_field :landlord, 'name', :required => 'required'
+          %br
+          %center
+            %h3 Rate this landlord
+          %br
+        - else
+          %h1= "Rate #{@landlord.name}"
+          %hr
         - Rating.categories.each do |cat|
-          %tr
-            %td
-              = label cat, "#{cat.to_s.capitalize}:"
-            %td
-              - 5.times do |i|
-                = radio_button :rating, cat, i+1, :checked => (i == 2)
-                = i+1
-        %tr
-          %td 
-            = label :comment, 'Leave a comment'
-          %td  
-            = text_area :rating, :comment, :cols => 20, :rows => 5, :required => true, :maxlength => 400
-         
-      %center
+          %h3.text-left= "#{cat.capitalize}"
+          %table.table.table-striped.table-bordered{:class => 'rate'}
+            %tr
+              - real_cat = "#{cat}_1".to_sym
+              %td
+                %p.text-left
+                  = Rating.quesmap[real_cat]
+              %td
+                - 5.times do |i|
+                  = radio_button :rating, real_cat, i+1, :checked => (i == 2)
+                  = i+1
+            %tr
+              - real_cat = "#{cat}_2".to_sym
+              %td
+                %p.text-left
+                  = Rating.quesmap[real_cat]
+              %td
+                - 5.times do |i|
+                  = radio_button :rating, real_cat, i+1, :checked => (i == 2)
+                  = i+1
+
+
+        %h3.text-center.voffset4 Leave a comment
+        .voffset3
+          = text_area :rating, :comment, :cols => 20, :rows => 5, :required => true, :maxlength => 400
+           
         %br
-        RateMyLandlord administration reserves the right to remove any comments that are defamatory, obscene or otherwise inappropriate. Please make sure your comments accurately reflect your experience and refrain from using any profanities. Thank you.
+        %p.text-left
+          %strong
+            RateMyLandlord administration reserves the right to remove any comments that are defamatory, obscene or otherwise inappropriate. Please make sure your comments accurately reflect your experience and refrain from using any profanities. Thank you.
         %br
         %br
 

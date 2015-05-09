@@ -34,7 +34,9 @@ group :assets do
   gem 'uglifier'
 end
 
- gem 'jquery-rails'
+gem 'less-rails-bootstrap'
+gem 'jquery-rails'
+gem 'jquery-ui-sass-rails', '~> 4.0.3.0'
 gem 'haml'
 # gem 'mail_form', ">= 1.3.0"
 # Use unicorn as the web server

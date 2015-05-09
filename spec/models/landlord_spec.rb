@@ -5,8 +5,10 @@ describe Landlord do
 
   def make_rating(id, values)
     Rating.create!(:user_id => 0, :landlord_id => id,
-      :general => values[0], :helpfulness => values[1],
-      :friendliness => values[2], :availability => values[3])
+      :general_1 => values[0], :general_1 => values[1],
+      :helpfulness_1 => values[2], :helpfulness_2 => values[3],
+      :professionalism_1 => values[4], :professionalism_2 => values[5], 
+      :credibility_1 => values[6], :credibility_2 => values[7])
   end
 
   context "with no ratings" do
@@ -21,9 +23,9 @@ describe Landlord do
   context "with ratings" do
     before(:each) do
       @ratings = [
-        make_rating(landlord.id, [2,3,4,5]),
-        make_rating(landlord.id, [3,5,2,5]),
-        make_rating(landlord.id+1, [2,2,2,2])
+        make_rating(landlord.id, [2,3,4,5,5,4,3,2]),
+        make_rating(landlord.id, [3,5,2,5,3,5,2,5]),
+        make_rating(landlord.id+1, [2,2,2,2,2,2,2,2])
       ]
     end
     it "has the right number of ratings" do

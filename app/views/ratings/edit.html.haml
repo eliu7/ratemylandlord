@@ -1,22 +1,34 @@
 #content
   %body
-    = form_for @rating, :method => :put do
-      %h1= "Edit review for #{@landlord.name}"
-      %hr
-      %table{:class => 'rate'}
+    .form-group
+      = form_for @rating, :method => :put do
+        %h1= "Edit review for #{@landlord.name}"
+        %hr
         - Rating.categories.each do |cat|
-          %tr
-            %td
-              = label cat, "#{cat.to_s.capitalize}:"
-            %td
-              - 5.times do |i|
-                = radio_button :rating, cat, i+1
-                = i+1
-        %tr
-          %td 
-            = label :comment, 'Leave a comment'
-          %td  
-            = text_area :rating, :comment, :cols => 20, :rows => 5, :required => true, :maxlength => 400
-         
-      %br
-      = submit_tag 'Update Review'
+          %h3.text-left= "#{cat.capitalize}"
+          %table.table.table-striped.table-bordered{:class => 'rate'}
+            %tr
+              - real_cat = "#{cat}_1".to_sym
+              %td
+                %p.text-left
+                  = Rating.quesmap[real_cat]
+              %td
+                - 5.times do |i|
+                  = radio_button :rating, real_cat, i+1, :checked => (i == 2)
+                  = i+1
+            %tr
+              - real_cat = "#{cat}_2".to_sym
+              %td
+                %p.text-left
+                  = Rating.quesmap[real_cat]
+              %td
+                - 5.times do |i|
+                  = radio_button :rating, real_cat, i+1, :checked => (i == 2)
+                  = i+1
+        
+        %h3.text-center.voffset3 Leave a comment
+        .voffset3
+          = text_area :rating, :comment, :cols => 20, :rows => 5, :required => true, :maxlength => 400
+           
+        %br
+        = submit_tag 'Update Review'

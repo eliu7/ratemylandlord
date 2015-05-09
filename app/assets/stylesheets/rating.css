@@ -21,9 +21,11 @@ h3{
   font-size:20px;
   margin-bottom:5px;
 }
+
 textarea{
-  width:90%;
+  width:100%;
 }
+
 table{
   padding-top:10px;
 

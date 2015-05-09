@@ -1,7 +1,7 @@
 #Controller for the landlord list and each individual landlord page
 class LandlordsController < ApplicationController
   def index
-    if require_sign_in('/')
+    if require_sign_in()
       pagesize = 20
       @page = (params[:page] || '1').to_i
       @sort = params[:sort]
