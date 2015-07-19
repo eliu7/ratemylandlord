@@ -1,10 +1,17 @@
 source 'http://rubygems.org'
 
+ruby '1.8.7'
+
 gem 'rails', '3.2.14'
 
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 
 gem 'thin'
+
+# to support ruby 1.8.7
+gem 'i18n', '~> 0.6.11'
+gem 'execjs', '2.0.0'
+gem 'ref', '~> 1.0.5'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
