@@ -5,6 +5,7 @@ gem 'rails', '3.2.14'
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 
 gem 'thin'
+gem 'passenger'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
